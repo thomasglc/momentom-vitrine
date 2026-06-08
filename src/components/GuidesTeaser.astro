@@ -1,23 +1,25 @@
 ---
-// src/components/GuidesTeaser.astro
 const guides = [
   {
     number: '01',
     title:  'Comment se préparer au Hyrox Open : le guide complet',
-    excerpt:'Stations, allures, structure d\'entraînement, erreurs classiques — tout ce qu\'il faut savoir avant de s\'inscrire.',
+    excerpt:'Stations, allures, structure d\'entraînement, erreurs classiques — tout ce qu\'il faut savoir.',
     href:   '/guides/',
+    tag:    'Guide complet',
   },
   {
     number: '02',
     title:  'Hyrox Single Open : programme et conseils pour débutants',
-    excerpt:'Ta première compétition en solo, pas à pas. Comment t\'entraîner, quel rythme tenir, comment ne pas te planter.',
+    excerpt:'Ta première compétition en solo, pas à pas. Comment t\'entraîner, quel rythme tenir.',
     href:   '/guides/hyrox-single-open/',
+    tag:    'Single Open',
   },
   {
     number: '03',
-    title:  'Hyrox Duo & Mixte Open : s\'organiser à deux pour performer',
-    excerpt:'Courir à deux, ça se prépare différemment. Organisation des relais, synchronisation, stratégie de course.',
+    title:  'Hyrox Duo & Mixte Open : s\'organiser à deux',
+    excerpt:'Courir à deux, ça se prépare différemment. Relais, synchronisation, stratégie.',
     href:   '/guides/hyrox-duo-mixte-open/',
+    tag:    'Duo & Mixte',
   },
 ]
 ---
@@ -25,19 +27,20 @@ const guides = [
 <section class="guides-teaser">
   <div class="container">
     <div class="section-header reveal">
-      <p class="section-label">Guides</p>
+      <p class="section-label">Guides gratuits</p>
       <h2 class="section-title">Tout ce qu'il faut savoir<br />pour se préparer au Hyrox</h2>
     </div>
 
-    <div class="guides-list">
+    <div class="guides-grid">
       {guides.map((g, i) => (
-        <a href={g.href} class="guide-row reveal" style={`--delay: ${i * 80}ms`}>
-          <span class="guide-number" aria-hidden="true">{g.number}</span>
-          <div class="guide-content">
-            <h3 class="guide-title">{g.title}</h3>
-            <p class="guide-excerpt">{g.excerpt}</p>
+        <a href={g.href} class="guide-card reveal" style={`--delay: ${i * 80}ms`}>
+          <div class="card-top">
+            <span class="card-tag">{g.tag}</span>
+            <span class="card-num" aria-hidden="true">{g.number}</span>
           </div>
-          <span class="guide-arrow" aria-hidden="true">→</span>
+          <h3 class="guide-title">{g.title}</h3>
+          <p class="guide-excerpt">{g.excerpt}</p>
+          <span class="guide-link">Lire le guide →</span>
         </a>
       ))}
     </div>
@@ -45,69 +48,75 @@ const guides = [
 </section>
 
 <style>
-  .guides-teaser { padding: 120px 0; }
+  .guides-teaser { padding: 100px 0; background: var(--bg-secondary); }
   .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-  .section-header { margin-bottom: 56px; }
+  .section-header { margin-bottom: 48px; }
   .section-label {
-    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--accent); margin: 0 0 16px;
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 12px;
   }
   .section-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(32px, 4.5vw, 60px); font-weight: 700;
+    font-size: clamp(32px, 4.5vw, 56px); font-weight: 700;
     letter-spacing: -0.01em; line-height: 0.95;
     color: var(--text-primary); margin: 0;
   }
 
-  .guides-list { display: flex; flex-direction: column; }
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
 
-  .guide-row {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    padding: 32px 0;
-    border-bottom: 1px solid var(--bg-border);
+  .guide-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 28px;
     text-decoration: none;
-    transition: all 250ms ease;
+    display: flex; flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 200ms, transform 200ms, border-color 200ms;
   }
-  .guide-row:first-child { border-top: 1px solid var(--bg-border); }
-  .guide-row:hover .guide-number { color: var(--accent); }
-  .guide-row:hover .guide-title  { color: var(--accent); }
-  .guide-row:hover .guide-arrow  { color: var(--accent); transform: translateX(6px); }
-  .guide-row:hover { border-bottom-color: rgba(249, 115, 22, 0.3); }
+  .guide-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
 
-  .guide-number {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px; font-weight: 600;
+  .card-top { display: flex; justify-content: space-between; align-items: center; }
+
+  .card-tag {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 10px; border-radius: 20px;
+  }
+
+  .card-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
     color: var(--text-muted); letter-spacing: 0.05em;
-    flex-shrink: 0; width: 32px;
-    transition: color 250ms;
   }
-
-  .guide-content { flex: 1; min-width: 0; }
 
   .guide-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(17px, 2.2vw, 22px); font-weight: 700;
-    color: var(--text-primary); margin: 0 0 8px;
-    transition: color 250ms;
+    font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700;
+    color: var(--text-primary); margin: 0; line-height: 1.4;
+    flex: 1;
   }
 
   .guide-excerpt {
     font-family: 'Syne', sans-serif; font-size: 14px;
-    color: var(--text-muted); line-height: 1.6; margin: 0;
+    color: var(--text-secondary); line-height: 1.6; margin: 0;
   }
 
-  .guide-arrow {
-    font-size: 20px; color: var(--text-muted);
-    flex-shrink: 0; transition: color 250ms, transform 250ms;
+  .guide-link {
+    font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+    color: var(--accent); transition: gap 200ms;
   }
 
-  @media (max-width: 640px) {
-    .guides-teaser { padding: 80px 0; }
-    .guide-row { gap: 16px; }
-    .guide-arrow { display: none; }
-  }
+  @media (max-width: 900px) { .guides-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .guides-teaser { padding: 72px 0; } }
 </style>

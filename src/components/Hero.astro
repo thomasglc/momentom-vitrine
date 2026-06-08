@@ -1,109 +1,110 @@
 ---
-// src/components/Hero.astro
 const stats = [
-  { value: 'Guidé pas à pas', label: 'Du 1er entraînement à la course' },
-  { value: '4 phases',        label: 'Progressives' },
-  { value: '3 formats',       label: 'Single · Duo · Mixte' },
+  { number: '4',    label: 'phases progressives' },
+  { number: '3',    label: 'formats couverts' },
+  { number: '100%', label: 'guidé, semaine par semaine' },
 ]
 ---
 
 <section class="hero">
-  <!-- Badge formats -->
-  <div class="badge-row reveal" style="--delay: 0ms">
-    <span class="badge badge-single">Single Open</span>
-    <span class="badge badge-duo">Duo Open</span>
-    <span class="badge badge-mixte">Mixte Open</span>
-  </div>
+  <div class="container">
+    <div class="hero-content">
 
-  <!-- Headline -->
-  <h1 class="headline reveal" style="--delay: 150ms">
-    Du premier entraînement<br />
-    au jour J — Momentum<br />
-    t'emmène jusqu'à ton<br class="hide-lg" />
-    <span class="accent-word">plein potentiel.</span>
-  </h1>
-
-  <!-- Sous-titre -->
-  <p class="subtitle reveal" style="--delay: 300ms">
-    Un plan structuré, semaine par semaine, adapté à ton niveau —
-    que tu débarques ou que tu vises le podium.
-  </p>
-
-  <!-- CTA -->
-  <div class="cta-row reveal" style="--delay: 450ms">
-    <a href="#waitlist" class="cta-primary">
-      Rejoins la liste d'attente — offre early bird
-    </a>
-    <p class="app-mention">App iOS &amp; Android · Bientôt disponible</p>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats reveal" style="--delay: 600ms">
-    {stats.map(stat => (
-      <div class="stat">
-        <span class="stat-value">{stat.value}</span>
-        <span class="stat-label">{stat.label}</span>
+      <!-- Badge -->
+      <div class="badge-row reveal" style="--delay: 0ms">
+        <span class="badge">Single Open</span>
+        <span class="badge">Duo Open</span>
+        <span class="badge">Mixte Open</span>
       </div>
-    ))}
+
+      <!-- Headline -->
+      <h1 class="headline reveal" style="--delay: 100ms">
+        Un plan.<br />
+        Une progression.<br />
+        <span class="accent-word">Ton Hyrox.</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="subtitle reveal" style="--delay: 200ms">
+        Momentum te donne un programme structuré et adapté à ton niveau —
+        que tu découvres le Hyrox ou que tu veuilles performer.
+      </p>
+
+      <!-- CTA -->
+      <div class="cta-row reveal" style="--delay: 300ms">
+        <a href="#waitlist" class="cta-primary">
+          Rejoindre la liste d'attente →
+        </a>
+        <p class="app-mention">iOS &amp; Android · Bientôt disponible</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid reveal" style="--delay: 200ms">
+      {stats.map(stat => (
+        <div class="stat-card">
+          <span class="stat-number">{stat.number}</span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+
+      <!-- Early bird card -->
+      <div class="stat-card stat-cta">
+        <span class="stat-price">15€<span class="stat-per">/mois</span></span>
+        <span class="stat-label">Sans engagement</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 120px 24px 80px;
+    padding: 120px 0 80px;
+    background: var(--bg-primary);
+  }
+
+  .container {
     max-width: 1280px;
     margin: 0 auto;
-    position: relative;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: center;
   }
 
-  /* Staggered reveal via CSS custom property */
   .reveal { transition-delay: var(--delay, 0ms); }
 
-  .badge-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-  }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
 
   .badge {
     font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 2px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid rgba(249,115,22,0.2);
   }
-  .badge-single { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.35); color: #f97316; }
-  .badge-duo    { background: rgba(59,130,246,0.12);  border: 1px solid rgba(59,130,246,0.35);  color: #60a5fa; }
-  .badge-mixte  { background: rgba(139,92,246,0.12);  border: 1px solid rgba(139,92,246,0.35);  color: #a78bfa; }
 
   .headline {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(52px, 9vw, 112px);
+    font-size: clamp(56px, 8vw, 100px);
     font-weight: 900;
-    line-height: 0.95;
+    line-height: 0.92;
     letter-spacing: -0.02em;
     color: var(--text-primary);
-    margin: 0 0 32px;
-    max-width: 900px;
+    margin: 0 0 28px;
   }
-
   .accent-word { color: var(--accent); }
-  .hide-lg { display: none; }
 
   .subtitle {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(15px, 2vw, 18px);
+    font-size: 17px;
     color: var(--text-secondary);
     line-height: 1.7;
-    max-width: 520px;
-    margin: 0 0 48px;
+    max-width: 480px;
+    margin: 0 0 40px;
   }
 
   .cta-row {
@@ -111,77 +112,93 @@ const stats = [
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-    margin-bottom: 64px;
   }
 
   .cta-primary {
     display: inline-block;
     font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--bg-deep);
+    font-size: 15px; font-weight: 700;
+    color: #fff;
     background: var(--accent);
-    padding: 16px 32px;
-    border-radius: 4px;
+    padding: 16px 28px;
+    border-radius: 8px;
     text-decoration: none;
-    transition: background 200ms, box-shadow 200ms, transform 200ms;
-    box-shadow: 0 0 40px var(--accent-glow-25);
+    transition: background 150ms, transform 150ms, box-shadow 150ms;
+    box-shadow: 0 4px 16px rgba(249,115,22,0.3);
   }
   .cta-primary:hover {
-    background: var(--accent-bright);
-    box-shadow: 0 0 60px var(--accent-glow-40);
+    background: var(--accent-dark);
     transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(249,115,22,0.35);
   }
 
   .app-mention {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: 0;
-    letter-spacing: 0.05em;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; color: var(--text-muted);
+    margin: 0; letter-spacing: 0.03em;
   }
 
-  .stats {
-    display: flex;
-    gap: 0;
-    border: 1px solid var(--bg-border);
-    border-radius: 8px;
-    overflow: hidden;
-    max-width: 640px;
+  /* Stats grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  .stat {
-    flex: 1;
+  .stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 20px 24px;
-    border-right: 1px solid var(--bg-border);
+    gap: 6px;
+    transition: box-shadow 200ms, transform 200ms;
   }
-  .stat:last-child { border-right: none; }
+  .stat-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
 
-  .stat-value {
+  .stat-number {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 52px; font-weight: 900;
     color: var(--accent);
-    letter-spacing: -0.01em;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   .stat-label {
     font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
+    font-size: 13px; color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .stat-cta {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .stat-cta .stat-label { color: rgba(255,255,255,0.8); }
+
+  .stat-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px; font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stat-per {
+    font-size: 22px; font-weight: 700;
+    color: rgba(255,255,255,0.8);
+  }
+
+  @media (max-width: 1024px) {
+    .container { grid-template-columns: 1fr; gap: 48px; }
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
   }
 
   @media (max-width: 640px) {
-    .hero { padding: 100px 20px 60px; }
-    .stats { flex-direction: column; max-width: 100%; }
-    .stat { border-right: none; border-bottom: 1px solid var(--bg-border); }
-    .stat:last-child { border-bottom: none; }
-    .hide-lg { display: block; }
+    .hero { padding: 100px 0 60px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>

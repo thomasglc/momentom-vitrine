@@ -1,12 +1,14 @@
 ---
-// src/components/Footer.astro
 const currentYear = new Date().getFullYear()
 ---
 
 <footer>
   <div class="container">
     <div class="top">
-      <span class="logo">MOMENTUM</span>
+      <div class="brand">
+        <span class="logo"><span class="logo-m">M</span>OMENTUM</span>
+        <p class="tagline">Prépare ton Hyrox. Sans improviser.</p>
+      </div>
       <nav aria-label="Footer">
         <a href="/">Accueil</a>
         <a href="/#tarifs">Tarifs</a>
@@ -16,64 +18,55 @@ const currentYear = new Date().getFullYear()
     </div>
     <div class="bottom">
       <p class="copy">© {currentYear} Momentum. Tous droits réservés.</p>
-      <p class="tagline">Prépare ton Hyrox. Sans improviser.</p>
+      <p class="formats">Single Open · Duo Open · Mixte Open</p>
     </div>
   </div>
 </footer>
 
 <style>
   footer {
-    border-top: 1px solid var(--bg-border);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
     padding: 48px 0 32px;
-    margin-top: 120px;
+    margin-top: 0;
   }
-  .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
   .top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-bottom: 32px;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; flex-wrap: wrap;
+    gap: 32px; margin-bottom: 40px;
   }
+
   .logo {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: 0.1em;
-    color: var(--text-primary);
+    font-weight: 700; font-size: 20px;
+    letter-spacing: 0.08em; color: var(--text-primary);
+    display: block; margin-bottom: 8px;
   }
-  nav {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+  .logo-m { color: var(--accent); }
+
+  .tagline {
+    font-family: 'Syne', sans-serif; font-size: 13px;
+    color: var(--text-muted); margin: 0;
   }
+
+  nav { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
   nav a {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 200ms;
+    font-family: 'Syne', sans-serif; font-size: 13px;
+    color: var(--text-secondary); text-decoration: none;
+    transition: color 150ms;
   }
   nav a:hover { color: var(--text-primary); }
 
   .bottom {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding-top: 24px;
-    border-top: 1px solid var(--bg-border);
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+    padding-top: 24px; border-top: 1px solid var(--border);
   }
-  .copy, .tagline {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: 0;
+  .copy, .formats {
+    font-family: 'Syne', sans-serif; font-size: 12px;
+    color: var(--text-muted); margin: 0;
   }
 
   @media (max-width: 640px) {
