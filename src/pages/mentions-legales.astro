@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Mentions légales — Momentum"
+  description="Mentions légales, politique de confidentialité et conditions d'utilisation de Momentum."
+  canonical="https://momentum-hyrox.fr/mentions-legales/"
+>
+  <div class="mentions">
+    <div class="container">
+      <h1>Mentions légales</h1>
+
+      <h2>Éditeur du site</h2>
+      <p>Momentum — [Nom ou raison sociale à compléter]<br/>
+      Email : [email à compléter]</p>
+
+      <h2>Hébergement</h2>
+      <p>Ce site est hébergé par Vercel Inc., 340 Pine Street, San Francisco, CA 94104, États-Unis.</p>
+
+      <h2>Collecte de données personnelles</h2>
+      <p>
+        Dans le cadre de la liste d'attente, nous collectons uniquement ton adresse email.
+        Cette donnée est utilisée exclusivement pour t'informer du lancement de l'application
+        Momentum et t'envoyer l'offre early bird promise lors de ton inscription.
+      </p>
+      <p>
+        Conformément au Règlement Général sur la Protection des Données (RGPD), tu disposes d'un
+        droit d'accès, de rectification et de suppression de tes données. Pour exercer ces droits,
+        contacte-nous à [email à compléter].
+      </p>
+      <p>Nous ne vendons ni ne partageons tes données avec des tiers.</p>
+
+      <h2>Cookies</h2>
+      <p>Ce site n'utilise pas de cookies de tracking. Aucune donnée de navigation n'est collectée.</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble du contenu de ce site (textes, visuels, code) est la propriété exclusive de Momentum.
+        Toute reproduction est interdite sans autorisation préalable.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .mentions { padding: 120px 0 80px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 6vw, 64px); font-weight: 900;
+    color: var(--text-primary); margin: 0 0 48px;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+    color: var(--text-primary); margin: 40px 0 12px;
+  }
+  p {
+    font-family: 'Syne', sans-serif; font-size: 15px;
+    color: var(--text-secondary); line-height: 1.8; margin: 0 0 16px;
+  }
+</style>
