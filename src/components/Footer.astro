@@ -1,0 +1,83 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear()
+---
+
+<footer>
+  <div class="container">
+    <div class="top">
+      <span class="logo">MOMENTUM</span>
+      <nav aria-label="Footer">
+        <a href="/">Accueil</a>
+        <a href="/#tarifs">Tarifs</a>
+        <a href="/guides/">Guides</a>
+        <a href="/mentions-legales/">Mentions légales</a>
+      </nav>
+    </div>
+    <div class="bottom">
+      <p class="copy">© {currentYear} Momentum. Tous droits réservés.</p>
+      <p class="tagline">Prépare ton Hyrox. Sans improviser.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--bg-border);
+    padding: 48px 0 32px;
+    margin-top: 120px;
+  }
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+  }
+  nav {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 200ms;
+  }
+  nav a:hover { color: var(--text-primary); }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 24px;
+    border-top: 1px solid var(--bg-border);
+  }
+  .copy, .tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .top { flex-direction: column; }
+    .bottom { flex-direction: column; }
+  }
+</style>
