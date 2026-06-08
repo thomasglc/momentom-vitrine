@@ -1,0 +1,164 @@
+---
+import GuideLayout from '../../components/GuideLayout.astro'
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien de temps faut-il pour préparer un Hyrox Open ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pour un débutant, 3 à 4 mois de préparation structurée sont recommandés. Momentum propose un programme progressif qui s'adapte à ton niveau de départ." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la différence entre Hyrox Single, Duo et Mixte Open ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le Single Open se court seul sur 8km + 8 stations. Le Duo se court à deux en alternance. Le Mixte est un duo homme/femme. Dans tous les cas, les stations et les distances sont identiques." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel niveau faut-il pour faire un Hyrox Open ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le Hyrox Open est accessible aux débutants avec une préparation adaptée. Pas besoin d'être un athlète de haut niveau — la progression structurée est la clé." }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il courir vite pour faire le Hyrox ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. La gestion de l'allure est plus importante que la vitesse brute. Momentum calibre tes allures en fonction de ton temps au 10km pour que tu ne partes pas trop vite." }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on faire un Hyrox sans salle de sport ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La préparation Hyrox nécessite un accès à du matériel spécifique (ski erg, rowing, sled, etc.). Certaines salles de sport proposent des espaces Hyrox dédiés." }
+    }
+  ]
+}
+---
+
+<GuideLayout
+  title="Comment se préparer au Hyrox Open : le guide complet"
+  description="Tout ce qu'il faut savoir pour préparer le Hyrox Open : programme d'entrainement, stations expliquées, allures de course, formats Single, Duo et Mixte. Guide complet pour débutants et intermédiaires."
+  canonical="https://momentum-hyrox.fr/guides/"
+  schema={faqSchema}
+  breadcrumbs={[
+    { name: 'Accueil', href: '/' },
+    { name: 'Guides' }
+  ]}
+>
+  <h1>Comment se préparer au Hyrox Open : le guide complet</h1>
+
+  <p>
+    Le Hyrox explose en France. Des milliers d'athlètes — débutants comme confirmés — franchissent
+    chaque année la ligne d'arrivée après 8 kilomètres de course entrecoupés de 8 stations fonctionnelles.
+    Mais entre l'inscription et le jour J, il y a une préparation. Ce guide te donne tout ce qu'il faut
+    pour l'aborder correctement, que tu vises juste finir ou que tu veuilles performer.
+  </p>
+
+  <h2>Qu'est-ce que le Hyrox Open ?</h2>
+
+  <p>
+    Le Hyrox est une compétition de fitness racing : tu cours 1 km, tu réalises une station fonctionnelle,
+    tu cours 1 km, tu réalises la station suivante — et ainsi de suite sur 8 répétitions.
+    Le format <strong>Open</strong> est le plus accessible : pas de temps minimum requis, pas de
+    qualification préalable.
+  </p>
+
+  <h3>Le format Single Open</h3>
+  <p>Tu cours seul. Tu réalises toutes les stations toi-même. C'est le format le plus exigeant physiquement et le plus répandu.</p>
+
+  <h3>Le format Duo Open</h3>
+  <p>Tu cours à deux en alternance. Chaque athlète peut réaliser les stations librement — une stratégie de relais bien pensée fait toute la différence.</p>
+
+  <h3>Le format Mixte Open</h3>
+  <p>Un duo homme + femme. Les mêmes règles que le Duo, avec une dimension de complémentarité supplémentaire.</p>
+
+  <h2>Les 8 stations Hyrox expliquées</h2>
+
+  <p>Chaque station revient dans le même ordre, quelle que soit la ville ou la date de compétition :</p>
+
+  <ul>
+    <li><strong>SkiErg — 1000m</strong> : mouvement de tirage bilatéral debout, travaille le dos, les épaules et le gainage.</li>
+    <li><strong>Sled Push — 50m</strong> : pousser un traîneau lesté sur 50 mètres. Force des jambes et cardiovasculaire.</li>
+    <li><strong>Sled Pull — 50m</strong> : tirer le traîneau avec une corde. Dos, biceps, gainage.</li>
+    <li><strong>Burpees Broad Jump — 80m</strong> : burpee avec saut en longueur. L'une des stations les plus épuisantes.</li>
+    <li><strong>Rowing — 1000m</strong> : ergomètre à rames. Technique et endurance.</li>
+    <li><strong>Farmer's Carry — 200m</strong> : porter deux kettlebells sur 200 mètres. Force de préhension et stabilité.</li>
+    <li><strong>Sandbag Lunges — 100m</strong> : fentes avec un sac de sable sur les épaules. Quadriceps et équilibre.</li>
+    <li><strong>Wall Balls — 75 à 100 répétitions</strong> : lancer une médecine-ball contre un mur depuis une position squat. Effort final souvent décisif.</li>
+  </ul>
+
+  <h2>Comment structurer son entraînement Hyrox</h2>
+
+  <p>
+    La clé d'une bonne préparation Hyrox, c'est la <strong>progression structurée</strong>.
+    Trop d'athlètes arrivent le jour J sans avoir jamais enchaîné course + station à la même
+    intensité qu'en compétition. Momentum découpe la préparation en 4 phases :
+  </p>
+
+  <h3>Phase 1 — Poser les bases</h3>
+  <p>Développer l'endurance aérobie fondamentale et la force fonctionnelle de base. Travail en zone 2, introduction des mouvements Hyrox sans charge maximale.</p>
+
+  <h3>Phase 2 — Développer l'endurance spécifique</h3>
+  <p>Augmenter le volume et introduire des blocs de course + station. L'objectif est d'habituer le corps à enchaîner sans récupération complète.</p>
+
+  <h3>Phase 3 — Spécificité Hyrox</h3>
+  <p>Simuler les conditions de course. Séances complètes avec les 8 stations, travail des allures de compétition, gestion de l'intensité station par station.</p>
+
+  <h3>Phase 4 — Affûtage avant compétition</h3>
+  <p>Réduire le volume, maintenir l'intensité. Préparer mentalement le plan de course, récupérer sans perdre les acquis.</p>
+
+  <h2>Les erreurs classiques des débutants</h2>
+
+  <ul>
+    <li><strong>Partir trop vite sur le premier kilomètre.</strong> L'erreur numéro un. L'enthousiasme du départ détruit le reste de la course.</li>
+    <li><strong>Négliger les stations à l'entraînement.</strong> Courir sans jamais s'entraîner aux mouvements spécifiques, c'est arriver le jour J sans repères.</li>
+    <li><strong>Ne pas s'entraîner à l'enchaînement.</strong> Courir d'un côté, faire de la force de l'autre — mais jamais ensemble. C'est pourtant l'essence du Hyrox.</li>
+    <li><strong>Sous-estimer le Sled Push et les Wall Balls.</strong> Ces deux stations sont systématiquement plus difficiles que prévu le jour J.</li>
+    <li><strong>Ignorer la récupération.</strong> La progression vient pendant la récupération, pas pendant l'entraînement.</li>
+  </ul>
+
+  <h2>Comment Momentum t'aide à progresser</h2>
+
+  <p>
+    Momentum est une application iOS et Android qui te donne un programme complet de préparation Hyrox.
+    Tu entres ton temps au 10km, et l'app calibre toutes tes allures de course en fonction de ton niveau.
+    Chaque semaine, tu sais exactement ce que tu dois faire, pourquoi, et à quelle intensité.
+    Tu suis ta progression séance par séance.
+  </p>
+
+  <p>
+    Disponible pour le <strong>Single Open</strong>, le <strong>Duo Open</strong> et le <strong>Mixte Open</strong>.
+  </p>
+
+  <h2>Questions fréquentes sur le Hyrox Open</h2>
+
+  <div class="faq-item">
+    <p class="faq-q">Combien de temps faut-il pour préparer un Hyrox Open ?</p>
+    <p class="faq-a">Pour un débutant, 3 à 4 mois de préparation structurée sont recommandés. Momentum propose un programme progressif qui s'adapte à ton niveau de départ.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">Quelle est la différence entre Hyrox Single, Duo et Mixte Open ?</p>
+    <p class="faq-a">Le Single Open se court seul sur 8km + 8 stations. Le Duo se court à deux en alternance. Le Mixte est un duo homme/femme. Dans tous les cas, les stations et les distances sont identiques.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">Quel niveau faut-il pour faire un Hyrox Open ?</p>
+    <p class="faq-a">Le Hyrox Open est accessible aux débutants avec une préparation adaptée. Pas besoin d'être un athlète de haut niveau — la progression structurée est la clé.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">Faut-il courir vite pour faire le Hyrox ?</p>
+    <p class="faq-a">Non. La gestion de l'allure est plus importante que la vitesse brute. Momentum calibre tes allures en fonction de ton temps au 10km pour que tu ne partes pas trop vite.</p>
+  </div>
+
+  <div class="faq-item">
+    <p class="faq-q">Peut-on faire un Hyrox sans salle de sport ?</p>
+    <p class="faq-a">La préparation Hyrox nécessite un accès à du matériel spécifique (ski erg, rowing, sled, etc.). Certaines salles de sport proposent des espaces Hyrox dédiés.</p>
+  </div>
+
+  <p style="margin-top: 32px;">
+    <a href="/guides/hyrox-single-open/" style="color: var(--accent);">→ Lire : Hyrox Single Open — programme et conseils pour débutants</a><br/>
+    <a href="/guides/hyrox-duo-mixte-open/" style="color: var(--accent);">→ Lire : Hyrox Duo &amp; Mixte Open — s'organiser à deux</a>
+  </p>
+
+</GuideLayout>
