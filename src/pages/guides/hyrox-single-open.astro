@@ -1,0 +1,124 @@
+---
+import GuideLayout from '../../components/GuideLayout.astro'
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hyrox Single Open : Programme et conseils pour débutants",
+  "description": "Comment préparer le Hyrox Single Open quand on est débutant ? Programme, allures, stations, erreurs à éviter.",
+  "author": { "@type": "Organization", "name": "Momentum" },
+  "datePublished": "2026-06-08",
+  "dateModified": "2026-06-08"
+}
+---
+
+<GuideLayout
+  title="Hyrox Single Open : Programme et conseils pour débutants"
+  description="Comment préparer le Hyrox Single Open quand on est débutant ? Programme d'entraînement, allures, stations, erreurs à éviter. Tout ce qu'il faut savoir avant ta première compétition."
+  canonical="https://momentum-hyrox.fr/guides/hyrox-single-open/"
+  schema={schema}
+  breadcrumbs={[
+    { name: 'Accueil', href: '/' },
+    { name: 'Guides', href: '/guides/' },
+    { name: 'Hyrox Single Open' }
+  ]}
+>
+  <h1>Hyrox Single Open : programme et conseils pour débutants</h1>
+
+  <p>
+    Le <strong>Hyrox Single Open</strong> est le format le plus populaire et le plus exigeant : tu cours seul,
+    tu gères tout toi-même, et tu n'as personne sur qui compter entre les stations. C'est aussi le format
+    le plus gratifiant quand tu franchis la ligne d'arrivée. Voici comment te préparer correctement,
+    même si c'est ta première compétition.
+  </p>
+
+  <h2>Ce que le Single Open implique concrètement</h2>
+
+  <p>
+    8 kilomètres de course fractionnés en 8 segments d'1 km, avec une station fonctionnelle après chaque
+    kilomètre. Tu ne t'arrêtes jamais vraiment — tu passes de la course à l'effort musculaire, puis tu
+    repars courir. Le total de l'effort dure entre 1h et 2h selon ton niveau.
+  </p>
+
+  <ul>
+    <li>Distance totale de course : <strong>8 km</strong></li>
+    <li>Nombre de stations : <strong>8</strong></li>
+    <li>Temps moyen débutant : <strong>1h30 à 2h</strong></li>
+    <li>Temps moyen intermédiaire : <strong>1h05 à 1h30</strong></li>
+  </ul>
+
+  <h2>L'allure de course : l'erreur à ne pas faire</h2>
+
+  <p>
+    La plus grande erreur des débutants en Single Open, c'est de courir le premier kilomètre trop vite.
+    Tu es frais, la foule te porte, l'adrénaline est là — et tu dépenses en 4 minutes ce dont tu
+    avais besoin pour tenir 90 minutes.
+  </p>
+
+  <p>
+    <strong>Règle d'or :</strong> ton allure de course au Hyrox doit être environ 60 à 75 secondes par kilomètre
+    plus lente que ton allure naturelle au 10km. Si tu cours un 10km en 55 minutes (5'30"/km), ta cible
+    au Hyrox sera autour de 6'30"–7'00"/km.
+  </p>
+
+  <p>
+    Momentum calcule automatiquement ces allures à partir de ton temps au 10km. Tu n'as pas à faire
+    le calcul toi-même.
+  </p>
+
+  <h2>Comment structurer ta préparation Single Open</h2>
+
+  <h3>Si tu es débutant (première compétition)</h3>
+  <p>
+    Commence au moins <strong>12 à 16 semaines avant</strong> ta compétition. Les premières semaines
+    servent à poser les bases aérobies et à apprendre les gestes techniques des stations.
+    Ne te concentre pas sur la performance — concentre-toi sur la régularité.
+  </p>
+
+  <ul>
+    <li>3 à 4 séances par semaine</li>
+    <li>Au moins 1 longue sortie course par semaine (45–60 min à allure confortable)</li>
+    <li>1 séance dédiée aux stations Hyrox (technique et volume modéré)</li>
+    <li>1 séance de renforcement musculaire général</li>
+  </ul>
+
+  <h3>Si tu es intermédiaire</h3>
+  <p>
+    Tu as une base aérobie et tu maîtrises les mouvements fonctionnels. Concentre-toi sur
+    l'<strong>enchaînement course + station</strong> à intensité de compétition. Les séances
+    "brick" (course puis stations sans récupération) sont ta priorité.
+  </p>
+
+  <h2>Les stations les plus piégeuses en Single</h2>
+
+  <p>En Single Open, trois stations font particulièrement trébucher les débutants :</p>
+
+  <ul>
+    <li>
+      <strong>Burpees Broad Jump (80m) :</strong> c'est la station la plus épuisante du parcours.
+      Garder un rythme régulier plutôt que de sprinter puis s'effondrer.
+    </li>
+    <li>
+      <strong>Sandbag Lunges (100m) :</strong> les jambes sont déjà fatiguées quand tu arrives là.
+      Le poids du sac amplifie la fatigue accumulée.
+    </li>
+    <li>
+      <strong>Wall Balls (75–100 reps) :</strong> la station finale. Si tu es parti trop vite,
+      c'est ici que tout s'effondre.
+    </li>
+  </ul>
+
+  <h2>Momentum pour le Single Open</h2>
+
+  <p>
+    L'application Momentum inclut un programme complet dédié au <strong>Single Open</strong>.
+    Programme progressif, allures calibrées selon ton niveau, suivi séance par séance.
+    Rejoins la liste d'attente pour être notifié au lancement et bénéficier de la remise early bird.
+  </p>
+
+  <p>
+    <a href="/guides/" style="color: var(--accent);">← Retour au guide complet Hyrox Open</a><br/>
+    <a href="/guides/hyrox-duo-mixte-open/" style="color: var(--accent);">→ Lire : Hyrox Duo &amp; Mixte Open</a>
+  </p>
+
+</GuideLayout>
