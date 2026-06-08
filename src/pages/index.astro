@@ -1,11 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Momentum",
+  "description": "Application de préparation à la compétition Hyrox format Open. Programme structuré en 4 phases avec calibrage d'allures personnalisé.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "iOS, Android",
+  "offers": [
+    {
+      "@type": "Offer",
+      "price": "15.00",
+      "priceCurrency": "EUR",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+    },
+    {
+      "@type": "Offer",
+      "price": "150.00",
+      "priceCurrency": "EUR",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1Y" }
+    }
+  ]
+}
 ---
+
 <BaseLayout
-  title="Momentum — Test"
-  description="Test de la mise en page"
+  title="Momentum — Application de préparation Hyrox Open | Single, Duo, Mixte"
+  description="Prépare-toi au Hyrox Open avec Momentum : programme structuré, allures personnalisées, suivi séance par séance. Single, Duo et Mixte Open. Rejoins la liste d'attente."
+  schema={schema}
 >
-  <div style="padding: 120px 24px; color: var(--text-primary); font-family: 'Syne', sans-serif;">
-    Header + Footer + Layout OK
-  </div>
+  <Hero />
 </BaseLayout>

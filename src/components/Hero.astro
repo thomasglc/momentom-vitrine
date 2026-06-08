@@ -1,0 +1,187 @@
+---
+// src/components/Hero.astro
+const stats = [
+  { value: 'Guidé pas à pas', label: 'Du 1er entraînement à la course' },
+  { value: '4 phases',        label: 'Progressives' },
+  { value: '3 formats',       label: 'Single · Duo · Mixte' },
+]
+---
+
+<section class="hero">
+  <!-- Badge formats -->
+  <div class="badge-row reveal" style="--delay: 0ms">
+    <span class="badge badge-single">Single Open</span>
+    <span class="badge badge-duo">Duo Open</span>
+    <span class="badge badge-mixte">Mixte Open</span>
+  </div>
+
+  <!-- Headline -->
+  <h1 class="headline reveal" style="--delay: 150ms">
+    Du premier entraînement<br />
+    au jour J — Momentum<br />
+    t'emmène jusqu'à ton<br class="hide-lg" />
+    <span class="accent-word">plein potentiel.</span>
+  </h1>
+
+  <!-- Sous-titre -->
+  <p class="subtitle reveal" style="--delay: 300ms">
+    Un plan structuré, semaine par semaine, adapté à ton niveau —
+    que tu débarques ou que tu vises le podium.
+  </p>
+
+  <!-- CTA -->
+  <div class="cta-row reveal" style="--delay: 450ms">
+    <a href="#waitlist" class="cta-primary">
+      Rejoins la liste d'attente — offre early bird
+    </a>
+    <p class="app-mention">App iOS &amp; Android · Bientôt disponible</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats reveal" style="--delay: 600ms">
+    {stats.map(stat => (
+      <div class="stat">
+        <span class="stat-value">{stat.value}</span>
+        <span class="stat-label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 24px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* Staggered reveal via CSS custom property */
+  .reveal { transition-delay: var(--delay, 0ms); }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .badge-single { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.35); color: #f97316; }
+  .badge-duo    { background: rgba(59,130,246,0.12);  border: 1px solid rgba(59,130,246,0.35);  color: #60a5fa; }
+  .badge-mixte  { background: rgba(139,92,246,0.12);  border: 1px solid rgba(139,92,246,0.35);  color: #a78bfa; }
+
+  .headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(52px, 9vw, 112px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0 0 32px;
+    max-width: 900px;
+  }
+
+  .accent-word { color: var(--accent); }
+  .hide-lg { display: none; }
+
+  .subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 0 48px;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 64px;
+  }
+
+  .cta-primary {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #080808;
+    background: var(--accent);
+    padding: 16px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 200ms, box-shadow 200ms, transform 200ms;
+    box-shadow: 0 0 40px rgba(249, 115, 22, 0.25);
+  }
+  .cta-primary:hover {
+    background: var(--accent-bright);
+    box-shadow: 0 0 60px rgba(249, 115, 22, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .app-mention {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .stats {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--bg-border);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 640px;
+  }
+
+  .stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 24px;
+    border-right: 1px solid var(--bg-border);
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+
+  .stat-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 100px 20px 60px; }
+    .stats { flex-direction: column; max-width: 100%; }
+    .stat { border-right: none; border-bottom: 1px solid var(--bg-border); }
+    .stat:last-child { border-bottom: none; }
+    .hide-lg { display: block; }
+  }
+</style>
