@@ -1,0 +1,113 @@
+---
+// src/components/GuidesTeaser.astro
+const guides = [
+  {
+    number: '01',
+    title:  'Comment se préparer au Hyrox Open : le guide complet',
+    excerpt:'Stations, allures, structure d\'entraînement, erreurs classiques — tout ce qu\'il faut savoir avant de s\'inscrire.',
+    href:   '/guides/',
+  },
+  {
+    number: '02',
+    title:  'Hyrox Single Open : programme et conseils pour débutants',
+    excerpt:'Ta première compétition en solo, pas à pas. Comment t\'entraîner, quel rythme tenir, comment ne pas te planter.',
+    href:   '/guides/hyrox-single-open/',
+  },
+  {
+    number: '03',
+    title:  'Hyrox Duo & Mixte Open : s\'organiser à deux pour performer',
+    excerpt:'Courir à deux, ça se prépare différemment. Organisation des relais, synchronisation, stratégie de course.',
+    href:   '/guides/hyrox-duo-mixte-open/',
+  },
+]
+---
+
+<section class="guides-teaser">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Guides</p>
+      <h2 class="section-title">Tout ce qu'il faut savoir<br />pour se préparer au Hyrox</h2>
+    </div>
+
+    <div class="guides-list">
+      {guides.map((g, i) => (
+        <a href={g.href} class="guide-row reveal" style={`--delay: ${i * 80}ms`}>
+          <span class="guide-number" aria-hidden="true">{g.number}</span>
+          <div class="guide-content">
+            <h3 class="guide-title">{g.title}</h3>
+            <p class="guide-excerpt">{g.excerpt}</p>
+          </div>
+          <span class="guide-arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .guides-teaser { padding: 120px 0; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  .section-header { margin-bottom: 56px; }
+  .section-label {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 16px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(32px, 4.5vw, 60px); font-weight: 700;
+    letter-spacing: -0.01em; line-height: 0.95;
+    color: var(--text-primary); margin: 0;
+  }
+
+  .guides-list { display: flex; flex-direction: column; }
+
+  .guide-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--bg-border);
+    text-decoration: none;
+    transition: all 250ms ease;
+  }
+  .guide-row:first-child { border-top: 1px solid var(--bg-border); }
+  .guide-row:hover .guide-number { color: var(--accent); }
+  .guide-row:hover .guide-title  { color: var(--accent); }
+  .guide-row:hover .guide-arrow  { color: var(--accent); transform: translateX(6px); }
+  .guide-row:hover { border-bottom-color: rgba(249, 115, 22, 0.3); }
+
+  .guide-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-muted); letter-spacing: 0.05em;
+    flex-shrink: 0; width: 32px;
+    transition: color 250ms;
+  }
+
+  .guide-content { flex: 1; min-width: 0; }
+
+  .guide-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(17px, 2.2vw, 22px); font-weight: 700;
+    color: var(--text-primary); margin: 0 0 8px;
+    transition: color 250ms;
+  }
+
+  .guide-excerpt {
+    font-family: 'Syne', sans-serif; font-size: 14px;
+    color: var(--text-muted); line-height: 1.6; margin: 0;
+  }
+
+  .guide-arrow {
+    font-size: 20px; color: var(--text-muted);
+    flex-shrink: 0; transition: color 250ms, transform 250ms;
+  }
+
+  @media (max-width: 640px) {
+    .guides-teaser { padding: 80px 0; }
+    .guide-row { gap: 16px; }
+    .guide-arrow { display: none; }
+  }
+</style>
