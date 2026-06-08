@@ -136,4 +136,8 @@ const { title, description, canonical, schema, breadcrumbs } = Astro.props
     box-shadow: 0 0 32px var(--accent-glow-40);
     transform: translateY(-2px);
   }
+
+  @media (max-width: 640px) {
+    .guide-cta { padding: 32px 24px; }
+  }
 </style>

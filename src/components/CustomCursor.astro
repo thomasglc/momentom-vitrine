@@ -39,7 +39,7 @@
   const dot  = document.getElementById('cursor-dot')
   const ring = document.getElementById('cursor-ring')
 
-  if (window.matchMedia('(pointer: fine)').matches && dot && ring) {
+  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && dot && ring) {
     let mouseX = 0, mouseY = 0
     let ringX  = 0, ringY  = 0
 
