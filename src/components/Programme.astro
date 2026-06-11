@@ -1,0 +1,142 @@
+---
+// Section programme : les 4 vraies phases du plan, couleurs de l'app.
+const phases = [
+  { num: '01', name: 'Fondation',    weeks: 'Semaines 1–4',   color: '#3b82f6', bg: '#eff6ff', desc: 'Maîtriser les 8 mouvements, construire la base cardio. Zéro blessure.' },
+  { num: '02', name: 'Construction', weeks: 'Semaines 5–9',   color: '#10b981', bg: '#ecfdf5', desc: 'Monter le volume, enchaîner course → station sans pause.' },
+  { num: '03', name: 'Spécificité',  weeks: 'Semaines 10–15', color: '#f97316', bg: '#fff7ed', desc: 'Poids de course officiels, simulations complètes chronométrées.' },
+  { num: '04', name: 'Affûtage',     weeks: 'Semaines 16–19', color: '#7c3aed', bg: '#f5f3ff', desc: 'Réduire la charge, arriver frais et confiant le jour J.' },
+]
+---
+
+<section class="programme" id="programme">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Le programme</p>
+      <h2 class="section-title">4 phases. Une méthode.</h2>
+      <p class="section-sub">19 semaines guidées, de la première séance au jour de la course.</p>
+    </div>
+
+    <div class="phases-grid">
+      {phases.map((p, i) => (
+        <article class="phase-card reveal" style={`--delay: ${i * 100}ms; --phase-color: ${p.color}; --phase-bg: ${p.bg}`}>
+          <div class="phase-top" aria-hidden="true"></div>
+          <span class="phase-num">{p.num}</span>
+          <span class="phase-weeks">{p.weeks}</span>
+          <h3 class="phase-name">{p.name}</h3>
+          <p class="phase-desc">{p.desc}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="progress-line reveal" style="--delay: 300ms" aria-hidden="true">
+      <div class="progress-line-fill"></div>
+      <span class="progress-flag">🏁 Jour J</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .programme { padding: 100px 0; background: var(--bg-secondary); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  .section-header { margin-bottom: 48px; }
+  .section-label {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 12px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 5vw, 60px); font-weight: 700;
+    letter-spacing: -0.01em; line-height: 0.95;
+    color: var(--text-primary); margin: 0 0 8px;
+  }
+  .section-sub {
+    font-family: 'Syne', sans-serif; font-size: 16px;
+    color: var(--text-secondary); margin: 0;
+  }
+
+  .phases-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .phase-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 0 24px 28px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: box-shadow 200ms, transform 200ms;
+  }
+  .phase-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+
+  .phase-top { height: 5px; background: var(--phase-color); margin: 0 -24px 22px; }
+
+  .phase-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 44px; font-weight: 900;
+    color: var(--phase-color);
+    line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .phase-weeks {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+  }
+  .phase-desc {
+    font-family: 'Syne', sans-serif;
+    font-size: 13.5px; color: var(--text-secondary);
+    line-height: 1.65; margin: 0;
+  }
+
+  .progress-line {
+    position: relative;
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    margin-top: 40px;
+    overflow: visible;
+  }
+  .progress-line-fill {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #10b981, #f97316, #7c3aed);
+    border-radius: 6px;
+    transition: width 1600ms cubic-bezier(0.22, 1, 0.36, 1) 200ms;
+  }
+  .progress-line.visible .progress-line-fill { width: 100%; }
+  .progress-flag {
+    position: absolute;
+    right: 0; top: -28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress-line-fill { width: 100%; transition: none; }
+  }
+
+  @media (max-width: 1024px) {
+    .phases-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .programme { padding: 72px 0; }
+    .phases-grid { grid-template-columns: 1fr; }
+  }
+</style>
