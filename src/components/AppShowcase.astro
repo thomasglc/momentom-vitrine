@@ -12,6 +12,8 @@ import ScreenProgramme from './screens/ScreenProgramme.astro'
       <h2 class="section-title">Dans ta poche,<br />semaine après semaine.</h2>
     </div>
 
+    <div class="phones-wrapper">
+      <div class="showcase-glow" aria-hidden="true"></div>
     <div class="phones">
       <div class="phone-item tilt-left reveal-scale" style="--delay: 0ms">
         <PhoneMockup label="Écran semaine : progression et séances de la semaine">
@@ -37,6 +39,7 @@ import ScreenProgramme from './screens/ScreenProgramme.astro'
         <p class="phone-desc">La vue d'ensemble, de la première séance au jour J.</p>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
@@ -57,11 +60,27 @@ import ScreenProgramme from './screens/ScreenProgramme.astro'
     color: var(--text-primary); margin: 0;
   }
 
+  .phones-wrapper {
+    position: relative;
+  }
+
+  .showcase-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px; height: 700px;
+    background: radial-gradient(ellipse, rgba(249, 115, 22, 0.18), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .phones {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     align-items: start;
+    position: relative;
+    z-index: 1;
   }
 
   .phone-item {
