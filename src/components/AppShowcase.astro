@@ -1,0 +1,116 @@
+---
+import PhoneMockup from './PhoneMockup.astro'
+import ScreenSemaine from './screens/ScreenSemaine.astro'
+import ScreenSeance from './screens/ScreenSeance.astro'
+import ScreenProgramme from './screens/ScreenProgramme.astro'
+---
+
+<section class="showcase" id="app">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">L'app en action</p>
+      <h2 class="section-title">Dans ta poche,<br />semaine après semaine.</h2>
+    </div>
+
+    <div class="phones">
+      <div class="phone-item tilt-left reveal-scale" style="--delay: 0ms">
+        <PhoneMockup label="Écran semaine : progression et séances de la semaine">
+          <ScreenSemaine />
+        </PhoneMockup>
+        <h3 class="phone-title">Ta semaine, d'un coup d'œil</h3>
+        <p class="phone-desc">Progression de la semaine, séances cochées, thème du moment.</p>
+      </div>
+
+      <div class="phone-item phone-center reveal-scale" style="--delay: 120ms">
+        <PhoneMockup label="Écran séance : détail des blocs et allures personnalisées">
+          <ScreenSeance />
+        </PhoneMockup>
+        <h3 class="phone-title">Chaque séance, détaillée</h3>
+        <p class="phone-desc">Blocs, allures calibrées sur ton niveau, validation en un geste.</p>
+      </div>
+
+      <div class="phone-item tilt-right reveal-scale" style="--delay: 240ms">
+        <PhoneMockup label="Écran programme : les 4 phases du plan">
+          <ScreenProgramme />
+        </PhoneMockup>
+        <h3 class="phone-title">19 semaines, 4 phases</h3>
+        <p class="phone-desc">La vue d'ensemble, de la première séance au jour J.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase { padding: 100px 0 110px; background: var(--bg-primary); overflow: hidden; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  .section-header { margin-bottom: 64px; }
+  .section-label {
+    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 12px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 5vw, 60px); font-weight: 700;
+    letter-spacing: -0.01em; line-height: 0.95;
+    color: var(--text-primary); margin: 0;
+  }
+
+  .phones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .phone-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .phone-item :global(.phone) {
+    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tilt-left :global(.phone)  { transform: rotate(-4deg); }
+  .tilt-right :global(.phone) { transform: rotate(4deg); }
+  .phone-center { margin-top: -24px; }
+
+  .phone-item:hover :global(.phone) { transform: rotate(0deg) scale(1.04); }
+
+  .phone-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--text-primary);
+    margin: 28px 0 6px;
+  }
+  .phone-desc {
+    font-family: 'Syne', sans-serif;
+    font-size: 13.5px; color: var(--text-secondary);
+    line-height: 1.6; margin: 0;
+    max-width: 260px;
+  }
+
+  @media (max-width: 1024px) {
+    .phones {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 24px;
+      padding: 24px 8px;
+      margin: 0 -24px;
+      padding-left: 24px;
+      padding-right: 24px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .phone-item { scroll-snap-align: center; flex-shrink: 0; }
+    .phone-center { margin-top: 0; }
+    .tilt-left :global(.phone), .tilt-right :global(.phone) { transform: none; }
+  }
+
+  @media (max-width: 640px) {
+    .showcase { padding: 72px 0 80px; }
+  }
+</style>
