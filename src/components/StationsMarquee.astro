@@ -13,9 +13,9 @@ const stations = [
 ]
 ---
 
-<div class="marquee" aria-label="Les 8 stations du Hyrox">
+<div class="marquee" role="region" aria-label="Les 8 stations du Hyrox">
   <div class="marquee-track">
-    <ul class="marquee-list">
+    <ul class="marquee-list" role="list">
       {stations.map(s => <li>{s}</li>)}
     </ul>
     <ul class="marquee-list" aria-hidden="true">
