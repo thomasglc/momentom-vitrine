@@ -1,0 +1,146 @@
+---
+// Réplique de SessionDetail.vue (séance running du mardi, semaine 6).
+// Héro emerald-600 = heroBg du type 'running' dans l'app.
+const blocks = [
+  { tag: 'Échauffement', detail: '15 min footing', pace: 'Z2 · 5:50 /km' },
+  { tag: 'Intervalles',  detail: '5 × 1km · récup 90 s', pace: 'Z4 · 4:35 /km' },
+  { tag: 'Retour au calme', detail: '8 min très facile', pace: 'Z1' },
+]
+---
+
+<div class="screen">
+  <div class="statusbar">9:41</div>
+
+  <!-- Héro coloré (type running) -->
+  <div class="hero">
+    <div class="hero-top">
+      <span class="back">‹</span>
+      <span class="type-badge">🏃 Course</span>
+    </div>
+    <div class="hero-title">Course A — Intervalles 5 × 1km</div>
+    <div class="hero-meta">
+      <span>Mardi</span>
+      <span class="sep">·</span>
+      <span>58 min</span>
+      <span class="sep">·</span>
+      <span class="dots">
+        {[1, 2, 3, 4, 5].map(n => (
+          <span class="dot" style={`background:${n <= 3 ? '#fff' : 'rgba(255,255,255,0.25)'}`}></span>
+        ))}
+      </span>
+    </div>
+  </div>
+
+  <div class="body">
+    <p class="desc">Intervalles longs à allure seuil pour développer ton endurance de course.</p>
+
+    <div class="coach-tip">
+      <span class="tip-icon">💬</span>
+      <span class="tip-text">Pars contrôlé sur le premier kilomètre — les derniers doivent être les plus rapides.</span>
+    </div>
+
+    <div class="prog-label">Programme</div>
+    <div class="prog-blocks">
+      {blocks.map(b => (
+        <div class="prog-block">
+          <span class="block-left">
+            <span class="block-tag">{b.tag}</span>
+            <span class="block-detail">{b.detail}</span>
+          </span>
+          <span class="block-pace">{b.pace}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="validate-btn">Valider la séance</div>
+  </div>
+</div>
+
+<style>
+  .screen {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    height: 100%;
+    background: #fafaf9;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statusbar {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 600; color: #292524;
+    padding: 8px 16px 2px;
+  }
+
+  .hero {
+    flex-shrink: 0;
+    background: #059669;
+    border-radius: 14px;
+    margin: 6px 10px 0;
+    padding: 10px 12px 13px;
+    box-shadow: 0 6px 14px rgba(5, 150, 105, 0.25);
+  }
+  .hero-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+  .back {
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff; font-size: 11px;
+  }
+  .type-badge {
+    font-size: 6.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: #fff; background: rgba(255, 255, 255, 0.2);
+    padding: 2.5px 7px; border-radius: 9px;
+  }
+  .hero-title { font-size: 14px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 7px; }
+  .hero-meta { display: flex; align-items: center; gap: 4px; font-size: 8px; color: rgba(255, 255, 255, 0.75); }
+  .sep { color: rgba(255, 255, 255, 0.35); }
+  .dots { display: inline-flex; gap: 2px; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; }
+
+  .body { padding: 9px 12px; display: flex; flex-direction: column; }
+
+  .desc { font-size: 8px; color: #57534e; line-height: 1.5; margin: 0 0 7px; }
+
+  .coach-tip {
+    display: flex; gap: 5px; align-items: flex-start;
+    background: #fafaf9;
+    border: 1px solid #e7e5e4;
+    border-radius: 9px;
+    padding: 6px 7px;
+    margin-bottom: 9px;
+  }
+  .tip-icon { font-size: 9px; flex-shrink: 0; }
+  .tip-text { font-size: 7px; font-style: italic; color: #57534e; line-height: 1.45; }
+
+  .prog-label {
+    font-size: 7px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: #a8a29e;
+    margin-bottom: 5px;
+  }
+  .prog-blocks { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+  .prog-block {
+    background: #fff;
+    border: 1px solid #f5f5f4;
+    border-radius: 9px;
+    padding: 6px 8px;
+    display: flex; justify-content: space-between; align-items: center; gap: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .block-left { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .block-tag { font-size: 6.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #059669; }
+  .block-detail { font-size: 8px; font-weight: 600; color: #292524; }
+  .block-pace { font-size: 7px; font-weight: 700; color: #57534e; white-space: nowrap; }
+
+  .validate-btn {
+    background: #10b981;
+    color: #fff;
+    font-size: 8.5px; font-weight: 700;
+    text-align: center;
+    padding: 8px;
+    border-radius: 9px;
+  }
+</style>
