@@ -1,10 +1,10 @@
 ---
 // Section programme : les 4 vraies phases du plan, couleurs de l'app.
 const phases = [
-  { num: '01', name: 'Fondation',    weeks: 'Semaines 1–4',   color: '#3b82f6', bg: '#eff6ff', desc: 'Maîtriser les 8 mouvements, construire la base cardio. Zéro blessure.' },
-  { num: '02', name: 'Construction', weeks: 'Semaines 5–9',   color: '#10b981', bg: '#ecfdf5', desc: 'Monter le volume, enchaîner course → station sans pause.' },
-  { num: '03', name: 'Spécificité',  weeks: 'Semaines 10–15', color: '#f97316', bg: '#fff7ed', desc: 'Poids de course officiels, simulations complètes chronométrées.' },
-  { num: '04', name: 'Affûtage',     weeks: 'Semaines 16–19', color: '#7c3aed', bg: '#f5f3ff', desc: 'Réduire la charge, arriver frais et confiant le jour J.' },
+  { num: '01', name: 'Fondation',    weeks: 'Semaines 1–4',   color: '#3b82f6', desc: 'Maîtriser les 8 mouvements, construire la base cardio. Zéro blessure.' },
+  { num: '02', name: 'Construction', weeks: 'Semaines 5–9',   color: '#10b981', desc: 'Monter le volume, enchaîner course → station sans pause.' },
+  { num: '03', name: 'Spécificité',  weeks: 'Semaines 10–15', color: '#f97316', desc: 'Poids de course officiels, simulations complètes chronométrées.' },
+  { num: '04', name: 'Affûtage',     weeks: 'Semaines 16–19', color: '#7c3aed', desc: 'Réduire la charge, arriver frais et confiant le jour J.' },
 ]
 ---
 
@@ -18,7 +18,7 @@ const phases = [
 
     <div class="phases-grid">
       {phases.map((p, i) => (
-        <article class="phase-card reveal" style={`--delay: ${i * 100}ms; --phase-color: ${p.color}; --phase-bg: ${p.bg}`}>
+        <article class="phase-card reveal" style={`--delay: ${i * 100}ms; --phase-color: ${p.color}`}>
           <div class="phase-top" aria-hidden="true"></div>
           <span class="phase-num">{p.num}</span>
           <span class="phase-weeks">{p.weeks}</span>
