@@ -8,9 +8,11 @@ const currentYear = new Date().getFullYear()
       <div class="brand">
         <span class="logo"><span class="logo-m">M</span>OMENTUM</span>
         <p class="tagline">Prépare ton Hyrox. Sans improviser.</p>
+        <p class="stores">📱 Bientôt sur iOS &amp; Android</p>
       </div>
       <nav aria-label="Footer">
         <a href="/">Accueil</a>
+        <a href="/#programme">Programme</a>
         <a href="/#tarifs">Tarifs</a>
         <a href="/guides/">Guides</a>
         <a href="/mentions-legales/">Mentions légales</a>
@@ -25,10 +27,8 @@ const currentYear = new Date().getFullYear()
 
 <style>
   footer {
-    background: var(--bg-secondary);
-    border-top: 1px solid var(--border);
-    padding: 48px 0 32px;
-    margin-top: 0;
+    background: #1a1a1a;
+    padding: 56px 0 32px;
   }
   .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
@@ -40,33 +40,37 @@ const currentYear = new Date().getFullYear()
 
   .logo {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 20px;
-    letter-spacing: 0.08em; color: var(--text-primary);
+    font-weight: 700; font-size: 22px;
+    letter-spacing: 0.08em; color: #fff;
     display: block; margin-bottom: 8px;
   }
   .logo-m { color: var(--accent); }
 
   .tagline {
     font-family: 'Syne', sans-serif; font-size: 13px;
-    color: var(--text-muted); margin: 0;
+    color: #a3a3a3; margin: 0 0 12px;
+  }
+  .stores {
+    font-family: 'Syne', sans-serif; font-size: 12px;
+    color: #737373; margin: 0;
   }
 
   nav { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
   nav a {
     font-family: 'Syne', sans-serif; font-size: 13px;
-    color: var(--text-secondary); text-decoration: none;
+    color: #d4d4d4; text-decoration: none;
     transition: color 150ms;
   }
-  nav a:hover { color: var(--text-primary); }
+  nav a:hover { color: #fff; }
 
   .bottom {
     display: flex; justify-content: space-between;
     flex-wrap: wrap; gap: 8px;
-    padding-top: 24px; border-top: 1px solid var(--border);
+    padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   .copy, .formats {
     font-family: 'Syne', sans-serif; font-size: 12px;
-    color: var(--text-muted); margin: 0;
+    color: #737373; margin: 0;
   }
 
   @media (max-width: 640px) {
