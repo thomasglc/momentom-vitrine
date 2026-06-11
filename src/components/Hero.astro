@@ -1,66 +1,74 @@
 ---
-const stats = [
-  { number: '4',    label: 'phases progressives' },
-  { number: '3',    label: 'formats couverts' },
-  { number: '100%', label: 'guidé, semaine par semaine' },
+import CtaPrimary from './CtaPrimary.astro'
+import PhoneMockup from './PhoneMockup.astro'
+import ScreenSemaine from './screens/ScreenSemaine.astro'
+
+const counters = [
+  { target: 4,   suffix: '',  label: 'phases progressives' },
+  { target: 19,  suffix: '',  label: "semaines d'entraînement" },
+  { target: 100, suffix: '%', label: 'guidé, séance par séance' },
 ]
 ---
 
 <section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-content">
 
-      <!-- Badge -->
       <div class="badge-row reveal" style="--delay: 0ms">
         <span class="badge">Single Open</span>
         <span class="badge">Duo Open</span>
         <span class="badge">Mixte Open</span>
       </div>
 
-      <!-- Headline -->
       <h1 class="headline reveal" style="--delay: 100ms">
         Un plan.<br />
         Une progression.<br />
         <span class="accent-word">Ton Hyrox.</span>
       </h1>
 
-      <!-- Subtitle -->
       <p class="subtitle reveal" style="--delay: 200ms">
         Momentum te donne un programme structuré et adapté à ton niveau —
         que tu découvres le Hyrox ou que tu veuilles performer.
       </p>
 
-      <!-- CTA -->
       <div class="cta-row reveal" style="--delay: 300ms">
-        <a href="#waitlist" class="cta-primary">
-          Rejoindre la liste d'attente →
-        </a>
-        <p class="app-mention">iOS &amp; Android · Bientôt disponible</p>
+        <CtaPrimary size="lg" />
+        <p class="app-mention">📱 iOS &amp; Android · Bientôt disponible</p>
+      </div>
+
+      <div class="counters reveal" style="--delay: 400ms">
+        {counters.map(c => (
+          <div class="counter">
+            <span class="counter-value" data-target={c.target} data-suffix={c.suffix}>{c.target}{c.suffix}</span>
+            <span class="counter-label">{c.label}</span>
+          </div>
+        ))}
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats-grid reveal" style="--delay: 200ms">
-      {stats.map(stat => (
-        <div class="stat-card">
-          <span class="stat-number">{stat.number}</span>
-          <span class="stat-label">{stat.label}</span>
-        </div>
-      ))}
-
-      <!-- Early bird card -->
-      <div class="stat-card stat-cta">
-        <span class="stat-price">15€<span class="stat-per">/mois</span></span>
-        <span class="stat-label">Sans engagement</span>
-      </div>
+    <div class="hero-phone reveal-scale" style="--delay: 250ms">
+      <PhoneMockup class="phone-float" label="L'application Momentum — vue de la semaine d'entraînement">
+        <ScreenSemaine />
+      </PhoneMockup>
     </div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding: 120px 0 80px;
+    padding: 130px 0 90px;
     background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -180px; right: -120px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 65%);
+    pointer-events: none;
   }
 
   .container {
@@ -68,15 +76,13 @@ const stats = [
     margin: 0 auto;
     padding: 0 24px;
     display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 80px;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
     align-items: center;
+    position: relative;
   }
 
-  .reveal { transition-delay: var(--delay, 0ms); }
-
   .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-
   .badge {
     font-family: 'Syne', sans-serif;
     font-size: 11px; font-weight: 700;
@@ -84,7 +90,7 @@ const stats = [
     padding: 4px 12px; border-radius: 20px;
     background: var(--accent-light);
     color: var(--accent);
-    border: 1px solid rgba(249,115,22,0.2);
+    border: 1px solid rgba(249, 115, 22, 0.2);
   }
 
   .headline {
@@ -104,7 +110,7 @@ const stats = [
     color: var(--text-secondary);
     line-height: 1.7;
     max-width: 480px;
-    margin: 0 0 40px;
+    margin: 0 0 36px;
   }
 
   .cta-row {
@@ -112,24 +118,7 @@ const stats = [
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-  }
-
-  .cta-primary {
-    display: inline-block;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px; font-weight: 700;
-    color: #fff;
-    background: var(--accent);
-    padding: 16px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 150ms, transform 150ms, box-shadow 150ms;
-    box-shadow: 0 4px 16px rgba(249,115,22,0.3);
-  }
-  .cta-primary:hover {
-    background: var(--accent-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(249,115,22,0.35);
+    margin-bottom: 48px;
   }
 
   .app-mention {
@@ -138,67 +127,65 @@ const stats = [
     margin: 0; letter-spacing: 0.03em;
   }
 
-  /* Stats grid */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .stat-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px 24px;
+  .counters {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    transition: box-shadow 200ms, transform 200ms;
+    gap: 40px;
+    flex-wrap: wrap;
   }
-  .stat-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-
-  .stat-number {
+  .counter { display: flex; flex-direction: column; gap: 2px; }
+  .counter-value {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 52px; font-weight: 900;
+    font-size: 44px; font-weight: 900;
     color: var(--accent);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 1; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
   }
-
-  .stat-label {
+  .counter-label {
     font-family: 'Syne', sans-serif;
-    font-size: 13px; color: var(--text-secondary);
-    line-height: 1.4;
+    font-size: 12.5px; color: var(--text-secondary);
+    max-width: 130px; line-height: 1.4;
   }
 
-  .stat-cta {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-  .stat-cta .stat-label { color: rgba(255,255,255,0.8); }
-
-  .stat-price {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 52px; font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-  .stat-per {
-    font-size: 22px; font-weight: 700;
-    color: rgba(255,255,255,0.8);
-  }
+  .hero-phone { display: flex; justify-content: center; }
 
   @media (max-width: 1024px) {
-    .container { grid-template-columns: 1fr; gap: 48px; }
-    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    .container { grid-template-columns: 1fr; gap: 56px; }
+    .hero-phone { order: 1; }
   }
 
   @media (max-width: 640px) {
-    .hero { padding: 100px 0 60px; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .hero { padding: 100px 0 64px; }
+    .counters { gap: 28px; }
+    .counter-value { font-size: 36px; }
   }
 </style>
+
+<script>
+  // Compteurs animés : la valeur finale est dans le HTML (SEO / no-JS),
+  // le JS anime de 0 vers la cible au moment où le compteur devient visible.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return
+      io.unobserve(entry.target)
+      const el = entry.target as HTMLElement
+      const target = parseInt(el.dataset.target || '0', 10)
+      const suffix = el.dataset.suffix || ''
+      if (reduce) return
+
+      const start = performance.now()
+      const duration = 1100
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / duration, 1)
+        const eased = 1 - Math.pow(1 - p, 3)
+        el.textContent = `${Math.round(eased * target)}${suffix}`
+        if (p < 1) requestAnimationFrame(tick)
+      }
+      el.textContent = `0${suffix}`
+      requestAnimationFrame(tick)
+    })
+  }, { threshold: 0.5 })
+
+  document.querySelectorAll('.counter-value').forEach(el => io.observe(el))
+</script>
