@@ -1,4 +1,5 @@
 ---
+import { SITE } from '../config'
 ---
 
 <section class="pricing" id="tarifs">
@@ -23,7 +24,7 @@
           <li>Single, Duo &amp; Mixte Open</li>
           <li>Suivi séance par séance</li>
         </ul>
-        <a href="#waitlist" class="btn-secondary">Rejoindre la liste →</a>
+        <a href={SITE.cta.href} class="btn-secondary">{SITE.cta.shortLabel} →</a>
       </div>
 
       <div class="card card-annual reveal" style="--delay: 80ms">
@@ -42,7 +43,7 @@
           <li>Suivi séance par séance</li>
           <li><strong>2 mois offerts vs mensuel</strong></li>
         </ul>
-        <a href="#waitlist" class="btn-primary">Rejoindre la liste →</a>
+        <a href={SITE.cta.href} class="btn-primary">{SITE.cta.shortLabel} →</a>
       </div>
     </div>
 
@@ -56,7 +57,7 @@
             Inscris-toi maintenant et bénéficie d'une <strong>remise exclusive</strong> réservée aux premiers arrivés. Offre limitée.
           </p>
         </div>
-        <form class="waitlist-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <form class="waitlist-form" action={SITE.formspreeUrl} method="POST">
           <div class="form-row">
             <label for="email" class="sr-only">Adresse email</label>
             <input type="email" id="email" name="email" placeholder="ton@email.com" required autocomplete="email" />
@@ -172,31 +173,41 @@
 
   /* Waitlist */
   .waitlist {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 48px;
+    background: #1a1a1a;
+    border: none;
+    border-radius: 20px; padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .waitlist::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.18), transparent 65%);
+    pointer-events: none;
   }
   .waitlist-inner { display: flex; gap: 64px; align-items: center; }
   .waitlist-text { flex: 1; }
   .waitlist-label {
     font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
-    color: var(--accent); margin: 0 0 12px;
+    color: #fb923c; margin: 0 0 12px;
   }
   .waitlist-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: clamp(28px, 4vw, 44px); font-weight: 700;
-    color: var(--text-primary); margin: 0 0 12px;
+    color: #fff; margin: 0 0 12px;
   }
   .waitlist-body {
     font-family: 'Syne', sans-serif; font-size: 15px;
-    color: var(--text-secondary); line-height: 1.7; margin: 0;
+    color: #d4d4d4; line-height: 1.7; margin: 0;
   }
   .waitlist-body strong { color: var(--accent); }
 
   .waitlist-form { flex: 1; }
   .form-row {
-    display: flex; border: 1.5px solid var(--border);
-    border-radius: 8px; overflow: hidden; margin-bottom: 10px;
+    display: flex; border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px; overflow: hidden; margin-bottom: 10px;
   }
   .form-row input {
     flex: 1; background: #fff; border: none; outline: none;
@@ -214,9 +225,9 @@
   .form-row button:hover { background: var(--accent-dark); }
   .form-mention {
     font-family: 'Syne', sans-serif; font-size: 12px;
-    color: var(--text-muted); margin: 0;
+    color: #a3a3a3; margin: 0;
   }
-  .form-mention a { color: var(--text-muted); text-decoration: underline; }
+  .form-mention a { color: #a3a3a3; text-decoration: underline; }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px;
