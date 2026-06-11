@@ -15,5 +15,5 @@ export const SITE = {
     appStore: '',
     playStore: '',
   },
-  formspreeUrl: 'https://formspree.io/f/YOUR_FORMSPREE_ID',
+  directusUrl: 'https://back.galocha.fr',
 }

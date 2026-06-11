@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../config'
+const DIRECTUS = SITE.directusUrl
 ---
 
 <section class="pricing" id="tarifs">
@@ -57,17 +58,57 @@ import { SITE } from '../config'
             Inscris-toi maintenant et bénéficie d'une <strong>remise exclusive</strong> réservée aux premiers arrivés. Offre limitée.
           </p>
         </div>
-        <form class="waitlist-form" action={SITE.formspreeUrl} method="POST">
+        <form class="waitlist-form" id="waitlist-form" novalidate>
           <div class="form-row">
             <label for="email" class="sr-only">Adresse email</label>
             <input type="email" id="email" name="email" placeholder="ton@email.com" required autocomplete="email" />
-            <button type="submit">Je réserve ma place</button>
+            <button type="submit" id="waitlist-btn">Je réserve ma place</button>
           </div>
-          <p class="form-mention">
+          <p class="form-mention" id="waitlist-msg">
             Pas de spam. Juste le lancement + ta remise.
             <a href="/mentions-legales/">Politique de confidentialité</a>
           </p>
         </form>
+
+        <script define:vars={{ DIRECTUS }}>
+          const form = document.getElementById('waitlist-form')
+          const btn  = document.getElementById('waitlist-btn')
+          const msg  = document.getElementById('waitlist-msg')
+
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const email = form.email.value.trim()
+            if (!email) return
+
+            btn.disabled = true
+            btn.textContent = '...'
+
+            try {
+              const res = await fetch(`${DIRECTUS}/items/waiting_list`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+              })
+
+              if (res.ok) {
+                btn.textContent = 'Inscription confirmée ✓'
+                btn.style.background = '#16a34a'
+                form.email.disabled = true
+                msg.innerHTML = 'Tu seras parmi les premiers informés du lancement.'
+              } else if (res.status === 400) {
+                msg.innerHTML = '<span style="color:#fb923c">Cet email est déjà inscrit.</span>'
+                btn.disabled = false
+                btn.textContent = 'Je réserve ma place'
+              } else {
+                throw new Error(res.status)
+              }
+            } catch {
+              msg.innerHTML = '<span style="color:#f87171">Une erreur est survenue, réessaie dans un instant.</span>'
+              btn.disabled = false
+              btn.textContent = 'Je réserve ma place'
+            }
+          })
+        </script>
       </div>
     </div>
   </div>
