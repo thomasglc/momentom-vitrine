@@ -114,8 +114,11 @@ const guides = [
 
   .guide-link {
     font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
-    color: var(--accent); transition: gap 200ms;
+    color: var(--accent);
+    display: inline-block;
+    transition: transform 200ms;
   }
+  .guide-card:hover .guide-link { transform: translateX(6px); }
 
   @media (max-width: 900px) { .guides-grid { grid-template-columns: 1fr; } }
   @media (max-width: 640px) { .guides-teaser { padding: 72px 0; } }
