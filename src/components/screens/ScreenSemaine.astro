@@ -1,0 +1,169 @@
+---
+// Réplique de WeekView.vue de l'app Momentum (semaine 6 réelle du plan).
+// Couleurs = palette Tailwind utilisée par l'app.
+const sessions = [
+  { icon: '🏃', iconBg: '#d1fae5', day: 'Mardi',    dayColor: '#059669', dur: '58 min',  title: 'Course A — Intervalles 5 × 1km',  dots: 3, dotColor: '#10b981', done: true,  checkColor: '#10b981' },
+  { icon: '⚡', iconBg: '#fef3c7', day: 'Mercredi', dayColor: '#d97706', dur: '70 min',  title: 'Hyrox A — AMRAP 22 min',           dots: 3, dotColor: '#f59e0b', done: true,  checkColor: '#f59e0b' },
+  { icon: '🏃', iconBg: '#d1fae5', day: 'Jeudi',    dayColor: '#059669', dur: '50 min',  title: 'Course B — Tempo',                 dots: 2, dotColor: '#10b981', done: false, checkColor: '#10b981' },
+  { icon: '🔗', iconBg: '#cffafe', day: 'Samedi',   dayColor: '#0e7490', dur: '100 min', title: 'Brick — Course + 5 Stations',      dots: 3, dotColor: '#06b6d4', done: false, checkColor: '#06b6d4' },
+  { icon: '⚡', iconBg: '#fef3c7', day: 'Dimanche', dayColor: '#d97706', dur: '60 min',  title: 'Hyrox B — Force Progression',      dots: 3, dotColor: '#f59e0b', done: false, checkColor: '#f59e0b' },
+]
+---
+
+<div class="screen">
+  <div class="statusbar">9:41</div>
+
+  <!-- Îlot navigation semaine (WeekNav) -->
+  <div class="weeknav">
+    <div class="weeknav-top">
+      <span class="phase-badge">Ph.2 — Construction</span>
+    </div>
+    <div class="weeknav-row">
+      <span class="nav-arrow">‹</span>
+      <div class="weeknav-center">
+        <div class="week-num">S6</div>
+        <div class="week-dates">22–28 Juin</div>
+        <div class="week-theme">Montée de Volume</div>
+      </div>
+      <span class="nav-arrow">›</span>
+    </div>
+  </div>
+
+  <!-- Barre de progression -->
+  <div class="progress">
+    <div class="progress-head">
+      <span class="progress-label">Progression</span>
+      <span class="progress-pct">40%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill"></div></div>
+  </div>
+
+  <!-- Note de semaine -->
+  <div class="week-note">Charges 72% · 5 × 1km mardi · Brick samedi</div>
+
+  <!-- Cartes de séance -->
+  <div class="sessions">
+    {sessions.map(s => (
+      <div class="session" style={s.done ? 'opacity: 0.55' : ''}>
+        <span class="session-icon" style={`background:${s.iconBg}`}>{s.icon}</span>
+        <span class="session-body">
+          <span class="session-meta">
+            <span class="session-day" style={`color:${s.dayColor}`}>{s.day}</span>
+            <span class="session-dur"> · {s.dur}</span>
+          </span>
+          <span class="session-title">{s.title}</span>
+          <span class="session-dots">
+            {[1, 2, 3, 4, 5].map(n => (
+              <span class="dot" style={`background:${n <= s.dots ? s.dotColor : '#e7e5e4'}`}></span>
+            ))}
+          </span>
+        </span>
+        <span class="session-check" style={s.done ? `background:${s.checkColor}; border-color:${s.checkColor}` : ''}>
+          {s.done && <span class="check-mark">✓</span>}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .screen {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    height: 100%;
+    background: #fafaf9;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statusbar {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 600; color: #292524;
+    padding: 8px 16px 2px;
+  }
+
+  .weeknav {
+    flex-shrink: 0;
+    background: #0f172a;
+    border-radius: 14px;
+    margin: 6px 10px 0;
+    padding: 10px 12px 12px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+  }
+  .weeknav-top { margin-bottom: 7px; }
+  .phase-badge {
+    font-size: 6.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2.5px 7px; border-radius: 9px;
+  }
+  .weeknav-row { display: flex; align-items: center; justify-content: space-between; }
+  .nav-arrow {
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff; font-size: 12px;
+  }
+  .weeknav-center { text-align: center; }
+  .week-num { font-size: 30px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+  .week-dates { font-size: 7px; color: rgba(255, 255, 255, 0.5); margin-top: 3px; letter-spacing: 0.04em; }
+  .week-theme { font-size: 9px; font-weight: 600; color: #fb923c; margin-top: 2px; }
+
+  .progress { flex-shrink: 0; padding: 8px 12px 4px; }
+  .progress-head { display: flex; justify-content: space-between; margin-bottom: 3px; }
+  .progress-label {
+    font-size: 7px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: #a8a29e;
+  }
+  .progress-pct { font-size: 8px; font-weight: 700; color: #57534e; }
+  .progress-track { height: 4px; background: #e7e5e4; border-radius: 4px; overflow: hidden; }
+  .progress-fill { width: 40%; height: 100%; background: #f97316; border-radius: 4px; }
+
+  .week-note {
+    flex-shrink: 0;
+    margin: 5px 12px 0;
+    background: #fff7ed;
+    border-left: 2.5px solid #fb923c;
+    border-radius: 0 6px 6px 0;
+    padding: 4px 7px;
+    font-size: 7px; color: #9a3412;
+  }
+
+  .sessions {
+    padding: 7px 10px 10px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .session {
+    background: #fff;
+    border: 1px solid #f5f5f4;
+    border-radius: 12px;
+    padding: 7px 8px;
+    display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .session-icon {
+    width: 26px; height: 26px; flex-shrink: 0;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  .session-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.5px; }
+  .session-meta { font-size: 6.5px; }
+  .session-day { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .session-dur { color: #a8a29e; }
+  .session-title {
+    font-size: 8.5px; font-weight: 600; color: #292524; line-height: 1.25;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .session-dots { display: flex; gap: 2px; margin-top: 1px; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; }
+  .session-check {
+    width: 16px; height: 16px; flex-shrink: 0;
+    border: 1.5px solid #e7e5e4; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .check-mark { color: #fff; font-size: 8px; font-weight: 700; }
+</style>
