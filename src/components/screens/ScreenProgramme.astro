@@ -1,0 +1,123 @@
+---
+// Réplique de PhasesView.vue avec les vraies phases du plan.
+const phases = [
+  { id: 1, short: 'Ph.1', name: 'Fondation',    weeks: 'S1–4',   dates: '18 Mai – 14 Juin',   bg: '#eff6ff', text: '#2563eb', bar: '#60a5fa', active: false },
+  { id: 2, short: 'Ph.2', name: 'Construction', weeks: 'S5–9',   dates: '15 Juin – 19 Juil',  bg: '#ecfdf5', text: '#059669', bar: '#34d399', active: true },
+  { id: 3, short: 'Ph.3', name: 'Spécificité',  weeks: 'S10–15', dates: '20 Juil – 30 Août',  bg: '#fff7ed', text: '#f97316', bar: '#fb923c', active: false },
+  { id: 4, short: 'Ph.4', name: 'Affûtage',     weeks: 'S16–19', dates: '31 Août – 27 Sep',   bg: '#f5f3ff', text: '#7c3aed', bar: '#a78bfa', active: false },
+]
+const goals = ['Augmenter le volume', 'Course → station sans pause']
+---
+
+<div class="screen">
+  <div class="statusbar">9:41</div>
+
+  <div class="head">
+    <div class="title">Plan d'Entraînement</div>
+    <div class="sub">4 phases · 19 semaines · 18 Mai – 27 Sep</div>
+  </div>
+
+  <!-- Grille de sélection rapide -->
+  <div class="phase-grid">
+    {phases.map(p => (
+      <div class="phase-btn" style={`background:${p.bg}; ${p.active ? 'box-shadow: 0 0 0 1.5px ' + p.text : 'opacity: 0.6'}`}>
+        <span class="btn-id" style={`color:${p.text}`}>{p.short}</span>
+        <span class="btn-name">{p.name}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Cartes de phase -->
+  <div class="phase-cards">
+    {phases.map(p => (
+      <div class="phase-card">
+        <div class="card-row">
+          <span class="card-bar" style={`background:${p.bar}`}></span>
+          <span class="card-content">
+            <span class="card-label" style={`color:${p.text}`}>Phase {p.id} · {p.weeks}</span>
+            <span class="card-name">{p.name}</span>
+            <span class="card-dates">{p.dates}</span>
+          </span>
+          <span class="chevron" style={p.active ? 'transform: rotate(180deg)' : ''}>⌄</span>
+        </div>
+        {p.active && (
+          <div class="card-expanded">
+            <span class="goals-label">Objectifs</span>
+            <span class="goals">
+              {goals.map(g => <span class="goal-chip">{g}</span>)}
+            </span>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .screen {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    height: 100%;
+    background: #fafaf9;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statusbar {
+    flex-shrink: 0;
+    font-size: 9px; font-weight: 600; color: #292524;
+    padding: 8px 16px 2px;
+  }
+
+  .head { padding: 8px 12px 7px; }
+  .title { font-size: 12px; font-weight: 700; color: #292524; }
+  .sub { font-size: 7px; color: #a8a29e; margin-top: 1px; }
+
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 0 12px 8px;
+  }
+  .phase-btn {
+    border-radius: 8px;
+    padding: 5px 3px;
+    text-align: center;
+    display: flex; flex-direction: column; gap: 1px;
+  }
+  .btn-id { font-size: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .btn-name { font-size: 6px; font-weight: 600; color: #44403c; }
+
+  .phase-cards { padding: 0 12px; display: flex; flex-direction: column; gap: 5px; }
+  .phase-card {
+    background: #fff;
+    border-radius: 11px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    padding: 8px 9px;
+  }
+  .card-row { display: flex; gap: 7px; align-items: stretch; }
+  .card-bar { width: 3.5px; border-radius: 3px; flex-shrink: 0; }
+  .card-content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .card-label { font-size: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; }
+  .card-name { font-size: 9px; font-weight: 700; color: #292524; }
+  .card-dates { font-size: 6.5px; color: #a8a29e; }
+  .chevron { font-size: 8px; color: #d6d3d1; align-self: center; }
+
+  .card-expanded {
+    border-top: 1px solid #f5f5f4;
+    margin-top: 7px; padding-top: 6px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .goals-label {
+    font-size: 6px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    color: #a8a29e;
+  }
+  .goals { display: flex; flex-wrap: wrap; gap: 3px; }
+  .goal-chip {
+    font-size: 6.5px; font-weight: 500;
+    background: #f5f5f4; color: #44403c;
+    padding: 2.5px 6px; border-radius: 8px;
+  }
+</style>
