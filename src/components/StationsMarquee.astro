@@ -1,0 +1,76 @@
+---
+// Bandeau défilant des 8 stations officielles Hyrox (distances format Open).
+// Liste dupliquée pour la boucle infinie ; le duplicata est aria-hidden.
+const stations = [
+  '1000m SkiErg',
+  '50m Sled Push',
+  '50m Sled Pull',
+  '80m Burpee Broad Jump',
+  '1000m Row',
+  '200m Farmers Carry',
+  '100m Sandbag Lunges',
+  '100 Wall Balls',
+]
+---
+
+<div class="marquee" aria-label="Les 8 stations du Hyrox">
+  <div class="marquee-track">
+    <ul class="marquee-list">
+      {stations.map(s => <li>{s}</li>)}
+    </ul>
+    <ul class="marquee-list" aria-hidden="true">
+      {stations.map(s => <li>{s}</li>)}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: #1a1a1a;
+    overflow: hidden;
+    padding: 16px 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee-list {
+    display: flex;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+
+  .marquee-list li {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
+    display: flex; align-items: center;
+  }
+
+  .marquee-list li::after {
+    content: '◆';
+    font-size: 8px;
+    color: var(--accent);
+    margin: 0 28px;
+  }
+
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+
+  @media (max-width: 640px) {
+    .marquee { padding: 12px 0; }
+    .marquee-list li { font-size: 16px; }
+    .marquee-list li::after { margin: 0 18px; }
+  }
+</style>
