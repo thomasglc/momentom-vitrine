@@ -1,0 +1,55 @@
+---
+// CTA principal du site. En mode 'waitlist' : lien ancre vers le formulaire.
+// En mode 'live' : badges App Store / Google Play.
+import { SITE } from '../config'
+
+interface Props {
+  size?: 'md' | 'lg'
+  label?: string
+}
+
+const { size = 'md', label = SITE.cta.label } = Astro.props
+const isLive = SITE.productState === 'live'
+---
+
+{isLive ? (
+  <span class={`store-badges ${size}`}>
+    <a href={SITE.stores.appStore} class="store-badge"> App Store</a>
+    <a href={SITE.stores.playStore} class="store-badge">▶ Google Play</a>
+  </span>
+) : (
+  <a href={SITE.cta.href} class={`cta ${size}`}>{label} →</a>
+)}
+
+<style>
+  .cta {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 150ms, transform 150ms, box-shadow 150ms;
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+  }
+  .cta.md { font-size: 14px; padding: 13px 24px; }
+  .cta.lg { font-size: 16px; padding: 17px 32px; }
+  .cta:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+  }
+
+  .store-badges { display: inline-flex; gap: 12px; }
+  .store-badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: #fff; background: #1a1a1a;
+    padding: 13px 22px; border-radius: 10px;
+    text-decoration: none;
+    transition: transform 150ms, opacity 150ms;
+  }
+  .store-badge:hover { transform: translateY(-2px); opacity: 0.9; }
+</style>
