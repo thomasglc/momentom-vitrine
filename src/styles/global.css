@@ -44,6 +44,29 @@ body {
   transform: translateY(0);
 }
 
+/* Reveal avec zoom léger (mockups téléphone) */
+.reveal-scale {
+  opacity: 0;
+  transform: translateY(24px) scale(0.96);
+  transition: opacity 600ms ease, transform 600ms ease;
+  transition-delay: var(--delay, 0ms);
+}
+.reveal-scale.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Flottement continu du téléphone du hero */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--float-rotate, 0deg)); }
+  50%      { transform: translateY(-14px) rotate(var(--float-rotate, 0deg)); }
+}
+.phone-float {
+  --float-rotate: 5deg;
+  transform: rotate(var(--float-rotate));
+  animation: float 6s ease-in-out infinite;
+}
+
 /* Focus visible */
 *:focus-visible {
   outline: 2px solid var(--accent);
@@ -56,5 +79,6 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.2ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal, .reveal-scale { opacity: 1; transform: none; }
+  .phone-float { animation: none; }
 }
