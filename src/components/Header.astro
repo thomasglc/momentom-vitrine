@@ -10,12 +10,12 @@ const navLinks = [
 ---
 
 <header id="header">
-  <div class="container">
+  <div class="navbar">
     <a href="/" class="logo" aria-label="Momentom — retour à l'accueil">
       <span class="logo-m">M</span>OMENTOM
     </a>
 
-    <nav aria-label="Navigation principale">
+    <nav class="nav-desktop" aria-label="Navigation principale">
       <ul>
         {navLinks.map(link => (
           <li><a href={link.href}>{link.label}</a></li>
@@ -27,46 +27,121 @@ const navLinks = [
       {SITE.cta.shortLabel}
     </a>
 
-    <button id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <button
+      id="menu-toggle"
+      popovertarget="mobile-menu"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+    >
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<div id="mobile-drawer" aria-hidden="true">
-  <button id="drawer-close" aria-label="Fermer le menu">✕</button>
+<div id="mobile-menu" popover>
   <nav aria-label="Menu mobile">
     <ul>
       {navLinks.map(link => (
         <li><a href={link.href}>{link.label}</a></li>
       ))}
-      <li><a href={SITE.cta.href} class="drawer-cta">{SITE.cta.shortLabel} →</a></li>
+      <li><a href={SITE.cta.href} class="menu-cta">{SITE.cta.shortLabel} →</a></li>
     </ul>
   </nav>
 </div>
-<div id="drawer-overlay"></div>
+
+<!-- Filtre de réfraction "liquid glass" appliqué en backdrop-filter -->
+<svg class="glass-defs" aria-hidden="true" focusable="false">
+  <filter id="glass-distortion" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise" />
+    <feGaussianBlur in="noise" stdDeviation="2" result="soft" />
+    <feDisplacementMap in="SourceGraphic" in2="soft" scale="14" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
 
 <style>
+  .glass-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
   header {
     position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1100px, calc(100% - 24px));
     z-index: 100;
   }
-  header.scrolled { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07); }
 
-  .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 100%;
+  .navbar {
+    height: 60px;
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 36px;
+    padding: 0 10px 0 24px;
+    border-radius: 999px;
+
+    /* Verre : teinte dérivée du fond, hautes lumières en bordure */
+    background: color-mix(in oklch, #ffffff 52%, transparent);
+    border: 1px solid color-mix(in srgb, #ffffff 60%, transparent);
+    box-shadow:
+      0 12px 32px rgba(26, 26, 26, 0.10),
+      0 2px 8px rgba(26, 26, 26, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -1px 0 rgba(26, 26, 26, 0.04);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6);
+    backdrop-filter: blur(16px) saturate(1.6);
+
+    transition: height 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+
+  /* Réfraction liquide : distorsion du fond via le filtre SVG, quand le
+     navigateur sait chaîner url() dans backdrop-filter. */
+  @supports (backdrop-filter: url(#glass-distortion)) {
+    .navbar {
+      -webkit-backdrop-filter: url(#glass-distortion) blur(14px) saturate(1.6);
+      backdrop-filter: url(#glass-distortion) blur(14px) saturate(1.6);
+    }
+  }
+
+  /* Compactage au scroll, sans JS quand le navigateur le permet */
+  @supports (animation-timeline: scroll()) {
+    .navbar {
+      animation: navbar-compact linear both;
+      animation-timeline: scroll();
+      animation-range: 0 140px;
+    }
+  }
+  @keyframes navbar-compact {
+    to {
+      height: 50px;
+      background: color-mix(in oklch, #ffffff 78%, transparent);
+      box-shadow:
+        0 8px 24px rgba(26, 26, 26, 0.14),
+        0 1px 4px rgba(26, 26, 26, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+  }
+  /* Repli JS : même état compact via .scrolled si pas de scroll-timeline */
+  @supports not (animation-timeline: scroll()) {
+    header.scrolled .navbar {
+      height: 50px;
+      background: color-mix(in oklch, #ffffff 78%, transparent);
+      box-shadow:
+        0 8px 24px rgba(26, 26, 26, 0.14),
+        0 1px 4px rgba(26, 26, 26, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  /* Accessibilité : verre quasi opaque si transparence réduite demandée */
+  @media (prefers-reduced-transparency: reduce) {
+    .navbar, #mobile-menu {
+      background: rgba(255, 255, 255, 0.96);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .navbar { animation: none; transition: none; }
+    #mobile-menu { transition: none; }
   }
 
   .logo {
@@ -80,16 +155,16 @@ const navLinks = [
   }
   .logo-m { color: var(--accent); }
 
-  nav { margin-left: auto; }
-  nav ul { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
-  nav a {
+  .nav-desktop { margin-left: auto; }
+  .nav-desktop ul { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
+  .nav-desktop a {
     font-family: 'Syne', sans-serif;
-    font-size: 14px; font-weight: 500;
+    font-size: 14px; font-weight: 600;
     color: var(--text-secondary);
     text-decoration: none;
     transition: color 150ms;
   }
-  nav a:hover { color: var(--text-primary); }
+  .nav-desktop a:hover { color: var(--text-primary); }
 
   .cta-btn {
     font-family: 'Syne', sans-serif;
@@ -112,88 +187,138 @@ const navLinks = [
   #menu-toggle {
     display: none;
     flex-direction: column;
+    justify-content: center;
     gap: 5px;
+    width: 40px; height: 40px;
+    align-items: center;
     background: none; border: none;
-    padding: 8px; margin-left: auto;
+    margin-left: auto;
+    border-radius: 50%;
   }
   #menu-toggle span {
-    display: block; width: 22px; height: 2px;
+    display: block; width: 20px; height: 2px;
+    border-radius: 2px;
     background: var(--text-primary);
-    transition: all 200ms;
+    transition: transform 250ms ease, opacity 200ms ease;
   }
+  #menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  #menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  #mobile-drawer {
+  /* ===== Menu mobile : panneau glass sous la pill, Popover API ===== */
+  #mobile-menu {
     position: fixed;
-    top: 0; right: 0; bottom: 0;
-    width: 280px;
-    background: #fff;
-    border-left: 1px solid var(--border);
-    z-index: 200;
-    padding: 32px 24px;
-    transform: translateX(100%);
-    transition: transform 300ms ease;
-  }
-  #mobile-drawer.open { transform: translateX(0); }
+    top: calc(env(safe-area-inset-top, 0px) + 84px);
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 420px;
+    inset-block-end: auto;
 
-  #mobile-drawer ul {
-    list-style: none; margin: 48px 0 0; padding: 0;
-    display: flex; flex-direction: column; gap: 8px;
+    border: 1px solid color-mix(in srgb, #ffffff 60%, transparent);
+    border-radius: 24px;
+    padding: 12px;
+    background: color-mix(in oklch, #ffffff 72%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    backdrop-filter: blur(20px) saturate(1.6);
+    box-shadow:
+      0 24px 48px rgba(26, 26, 26, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    opacity: 0;
+    translate: 0 -10px;
+    scale: 0.97;
+    transition:
+      opacity 250ms ease,
+      translate 250ms ease,
+      scale 250ms ease,
+      overlay 250ms ease allow-discrete,
+      display 250ms ease allow-discrete;
   }
-  #mobile-drawer a {
+  #mobile-menu:popover-open {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+  @starting-style {
+    #mobile-menu:popover-open {
+      opacity: 0;
+      translate: 0 -10px;
+      scale: 0.97;
+    }
+  }
+  #mobile-menu::backdrop {
+    background: rgba(26, 26, 26, 0.12);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+
+  #mobile-menu ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column;
+  }
+  #mobile-menu li + li { border-top: 1px solid rgba(26, 26, 26, 0.06); }
+  #mobile-menu a {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 36px; font-weight: 700;
+    font-size: 26px; font-weight: 700;
     color: var(--text-primary);
-    text-decoration: none; display: block; padding: 4px 0;
-    transition: color 150ms;
+    text-decoration: none;
+    display: block;
+    padding: 13px 16px;
+    border-radius: 14px;
+    transition: background 150ms, color 150ms;
   }
-  #mobile-drawer a:hover { color: var(--accent); }
-  .drawer-cta { color: var(--accent) !important; }
-
-  #drawer-close {
-    position: absolute; top: 20px; right: 20px;
-    background: none; border: none;
-    color: var(--text-secondary); font-size: 20px; padding: 8px;
-  }
-
-  #drawer-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.3); z-index: 199;
-  }
-  #drawer-overlay.open { display: block; }
+  #mobile-menu a:hover { background: rgba(249, 115, 22, 0.08); color: var(--accent); }
+  .menu-cta { color: var(--accent) !important; }
 
   @media (max-width: 768px) {
-    nav, .cta-btn { display: none; }
+    .nav-desktop, .cta-btn { display: none; }
     #menu-toggle { display: flex; }
-    .container { gap: 0; }
+    .navbar { gap: 0; padding: 0 8px 0 20px; }
   }
 </style>
 
 <script>
-  const toggle  = document.getElementById('menu-toggle')
-  const drawer  = document.getElementById('mobile-drawer')
-  const overlay = document.getElementById('drawer-overlay')
-  const close   = document.getElementById('drawer-close')
-
-  function openDrawer() {
-    drawer.classList.add('open')
-    overlay.classList.add('open')
-    toggle.setAttribute('aria-expanded', 'true')
-    drawer.setAttribute('aria-hidden', 'false')
-  }
-  function closeDrawer() {
-    drawer.classList.remove('open')
-    overlay.classList.remove('open')
-    toggle.setAttribute('aria-expanded', 'false')
-    drawer.setAttribute('aria-hidden', 'true')
-  }
-
-  toggle?.addEventListener('click', openDrawer)
-  close?.addEventListener('click', closeDrawer)
-  overlay?.addEventListener('click', closeDrawer)
-  drawer?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer))
-
+  const toggle = document.getElementById('menu-toggle')
+  const menu   = document.getElementById('mobile-menu')
   const header = document.getElementById('header')
-  window.addEventListener('scroll', () => {
-    header?.classList.toggle('scrolled', window.scrollY > 8)
-  }, { passive: true })
+
+  if (toggle && menu) {
+    if (HTMLElement.prototype.showPopover) {
+      // Popover API : light-dismiss et Échap natifs, on synchronise juste l'état
+      menu.addEventListener('toggle', (e) => {
+        const open = e.newState === 'open'
+        toggle.setAttribute('aria-expanded', String(open))
+        toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu')
+      })
+      menu.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => menu.hidePopover())
+      )
+    } else {
+      // Repli sans Popover API : toggle manuel
+      menu.removeAttribute('popover')
+      menu.style.display = 'none'
+      const setOpen = (open) => {
+        menu.style.display = open ? 'block' : 'none'
+        menu.style.opacity = open ? '1' : '0'
+        menu.style.translate = '0 0'
+        menu.style.scale = '1'
+        toggle.setAttribute('aria-expanded', String(open))
+      }
+      toggle.addEventListener('click', () =>
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true')
+      )
+      menu.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => setOpen(false))
+      )
+    }
+  }
+
+  // Repli du compactage au scroll si le navigateur n'a pas les scroll-timelines
+  if (!CSS.supports('animation-timeline: scroll()')) {
+    window.addEventListener('scroll', () => {
+      header?.classList.toggle('scrolled', window.scrollY > 8)
+    }, { passive: true })
+  }
 </script>
