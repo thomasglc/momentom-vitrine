@@ -134,12 +134,13 @@ const DIRECTUS = SITE.directusUrl
     color: var(--text-secondary); margin: 0;
   }
 
-  .cards-row { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 64px; }
+  .cards-row { display: flex; gap: 20px; align-items: stretch; margin-bottom: 64px; }
 
   .card {
     background: var(--bg-primary);
     border: 1.5px solid var(--border);
     border-radius: 16px; padding: 36px; flex: 1; position: relative;
+    display: flex; flex-direction: column;
     transition: box-shadow 200ms, transform 200ms;
   }
   .card:hover { box-shadow: var(--shadow-md); }
@@ -181,7 +182,7 @@ const DIRECTUS = SITE.directusUrl
   }
 
   .features-list {
-    list-style: none; margin: 0 0 28px; padding: 0;
+    list-style: none; margin: 0 0 28px; padding: 0; flex: 1;
     display: flex; flex-direction: column; gap: 8px;
   }
   .features-list li {
