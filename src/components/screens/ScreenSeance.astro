@@ -1,11 +1,34 @@
 ---
-// Réplique de SessionDetail.vue (séance running du mardi, semaine 6).
+// Réplique de SessionDetail.vue + SessionPaceChart.vue (séance running du mardi).
 // Héro emerald-600 = heroBg du type 'running' dans l'app.
-const blocks = [
-  { tag: 'Échauffement', detail: '15 min footing', pace: 'Z2 · 5:50 /km' },
-  { tag: 'Intervalles',  detail: '5 × 1km · récup 90 s', pace: 'Z4 · 4:35 /km' },
-  { tag: 'Retour au calme', detail: '8 min très facile', pace: 'Z1' },
+// Échelle thermique du graphique : froid = facile, chaud = intense (SEG_STYLES de l'app).
+const SEG_STYLES = {
+  warmup:   { top: '#a3e635', bottom: '#65a30d', h: 46, chip: '#65a30d' },
+  tempo:    { top: '#fbbf24', bottom: '#ef4444', h: 92, chip: '#b45309' },
+  recovery: { top: '#38bdf8', bottom: '#0284c7', h: 20, chip: '#0369a1' },
+  cooldown: { top: '#2dd4bf', bottom: '#0d9488', h: 34, chip: '#0f766e' },
+}
+
+// Échauffement 15' + 4 × 3' (récup 2') + retour au calme 10' = 43 min
+const segments = [
+  { type: 'warmup', duration: 15 },
+  { type: 'tempo', duration: 3 }, { type: 'recovery', duration: 2 },
+  { type: 'tempo', duration: 3 }, { type: 'recovery', duration: 2 },
+  { type: 'tempo', duration: 3 }, { type: 'recovery', duration: 2 },
+  { type: 'tempo', duration: 3 },
+  { type: 'cooldown', duration: 10 },
 ]
+
+const steps = [
+  { type: 'warmup',   title: 'Échauffement',    meta: '15 min',     pace: '4:58/km–5:31/km' },
+  { type: 'tempo',    title: '4 × 3 min',       meta: 'récup 2 min', pace: '4:19/km–4:27/km' },
+  { type: 'cooldown', title: 'Retour au calme', meta: '10 min',     pace: '4:58/km–5:31/km' },
+]
+
+const chipStyle = (type: keyof typeof SEG_STYLES) => {
+  const s = SEG_STYLES[type]
+  return `color:${s.chip};background:${s.top}28;border-color:${s.chip}44`
+}
 ---
 
 <div class="screen">
@@ -15,13 +38,13 @@ const blocks = [
   <div class="hero">
     <div class="hero-top">
       <span class="back">‹</span>
-      <span class="type-badge">🏃 Course</span>
+      <span class="type-badge">Course</span>
     </div>
-    <div class="hero-title">Course A — Intervalles 5 × 1km</div>
+    <div class="hero-title">Intervalles 4 × 3min</div>
     <div class="hero-meta">
       <span>Mardi</span>
       <span class="sep">·</span>
-      <span>58 min</span>
+      <span>55 min</span>
       <span class="sep">·</span>
       <span class="dots">
         {[1, 2, 3, 4, 5].map(n => (
@@ -32,24 +55,52 @@ const blocks = [
   </div>
 
   <div class="body">
-    <p class="desc">Intervalles longs à allure seuil pour développer ton endurance de course.</p>
+    <p class="desc">Première séance de fractionné longs. Récupération entre les efforts.</p>
 
     <div class="coach-tip">
-      <span class="tip-icon">💬</span>
-      <span class="tip-text">Pars contrôlé sur le premier kilomètre — les derniers doivent être les plus rapides.</span>
+      <span class="tip-text">Récupérez VRAIMENT entre les répétitions. Une bonne récup = un meilleur effort suivant.</span>
     </div>
 
-    <div class="prog-label">Programme</div>
-    <div class="prog-blocks">
-      {blocks.map(b => (
-        <div class="prog-block">
-          <span class="block-left">
-            <span class="block-tag">{b.tag}</span>
-            <span class="block-detail">{b.detail}</span>
-          </span>
-          <span class="block-pace">{b.pace}</span>
-        </div>
-      ))}
+    <!-- Carte "Déroulé de la séance" (SessionPaceChart) -->
+    <div class="pace-card">
+      <div class="pace-label">Déroulé de la séance</div>
+
+      <div class="pace-grid">
+        {segments.map(seg => {
+          const s = SEG_STYLES[seg.type]
+          return (
+            <div
+              class="pace-bar"
+              style={`flex:${seg.duration};height:${s.h}%;background:linear-gradient(180deg, ${s.top} 0%, ${s.bottom} 100%);${seg.type === 'tempo' ? 'box-shadow:0 1px 5px rgba(239,68,68,0.3);' : ''}`}
+            ></div>
+          )
+        })}
+      </div>
+      <div class="pace-axis">
+        <span>0 min</span>
+        <span>43 min</span>
+      </div>
+
+      <div class="steps">
+        {steps.map((step, i) => {
+          const s = SEG_STYLES[step.type]
+          return (
+            <div class="step-row">
+              <div class="step-rail">
+                <span class="step-dot" style={`background:linear-gradient(135deg, ${s.top}, ${s.bottom})`}></span>
+                {i < steps.length - 1 && <span class="step-line"></span>}
+              </div>
+              <div class="step-content">
+                <div class="step-head">
+                  <span class="step-title">{step.title}</span>
+                  <span class="pace-chip" style={chipStyle(step.type)}>{step.pace}</span>
+                </div>
+                <div class="step-meta">{step.meta}</div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
 
     <div class="validate-btn">Valider la séance</div>
@@ -59,6 +110,7 @@ const blocks = [
 <style>
   .screen {
     font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    text-align: left;
     height: 100%;
     background: #fafaf9;
     overflow: hidden;
@@ -77,16 +129,16 @@ const blocks = [
     background: #059669;
     border-radius: 14px;
     margin: 6px 10px 0;
-    padding: 10px 12px 13px;
+    padding: 9px 12px 11px;
     box-shadow: 0 6px 14px rgba(5, 150, 105, 0.25);
   }
-  .hero-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+  .hero-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
   .back {
-    width: 20px; height: 20px;
+    width: 18px; height: 18px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.15);
-    color: #fff; font-size: 11px;
+    color: #fff; font-size: 10px;
   }
   .type-badge {
     font-size: 6.5px; font-weight: 700;
@@ -94,51 +146,93 @@ const blocks = [
     color: #fff; background: rgba(255, 255, 255, 0.2);
     padding: 2.5px 7px; border-radius: 9px;
   }
-  .hero-title { font-size: 14px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 7px; }
+  .hero-title { font-size: 13px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 6px; }
   .hero-meta { display: flex; align-items: center; gap: 4px; font-size: 8px; color: rgba(255, 255, 255, 0.75); }
   .sep { color: rgba(255, 255, 255, 0.35); }
   .dots { display: inline-flex; gap: 2px; }
   .dot { width: 4px; height: 4px; border-radius: 50%; }
 
-  .body { padding: 9px 12px; display: flex; flex-direction: column; }
+  .body { flex: 1; padding: 7px 12px 12px; display: flex; flex-direction: column; }
 
-  .desc { font-size: 8px; color: #57534e; line-height: 1.5; margin: 0 0 7px; }
+  .desc { font-size: 8.5px; color: #57534e; line-height: 1.45; margin: 0 0 5px; }
 
   .coach-tip {
-    display: flex; gap: 5px; align-items: flex-start;
     background: #fafaf9;
     border: 1px solid #e7e5e4;
-    border-radius: 9px;
-    padding: 6px 7px;
-    margin-bottom: 9px;
+    border-radius: 8px;
+    padding: 5px 7px;
+    margin-bottom: 7px;
   }
-  .tip-icon { font-size: 9px; flex-shrink: 0; }
-  .tip-text { font-size: 7px; font-style: italic; color: #57534e; line-height: 1.45; }
+  .tip-text { font-size: 7.5px; font-style: italic; color: #57534e; line-height: 1.4; }
 
-  .prog-label {
-    font-size: 7px; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: #a8a29e;
-    margin-bottom: 5px;
-  }
-  .prog-blocks { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
-  .prog-block {
-    background: #fff;
-    border: 1px solid #f5f5f4;
-    border-radius: 9px;
-    padding: 6px 8px;
-    display: flex; justify-content: space-between; align-items: center; gap: 6px;
+  /* ===== Carte "Déroulé de la séance" — réplique SessionPaceChart ===== */
+  .pace-card {
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(16, 185, 129, 0.08) 0%, transparent 55%),
+      linear-gradient(165deg, #ffffff 0%, #fafaf9 100%);
+    border: 1px solid rgba(231, 229, 228, 0.8);
+    border-radius: 11px;
+    padding: 10px 11px 9px;
+    margin-bottom: 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   }
-  .block-left { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-  .block-tag { font-size: 6.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #059669; }
-  .block-detail { font-size: 8px; font-weight: 600; color: #292524; }
-  .block-pace { font-size: 7px; font-weight: 700; color: #57534e; white-space: nowrap; }
+  .pace-label {
+    font-size: 7px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: #059669;
+    margin-bottom: 5px;
+  }
+
+  .pace-grid {
+    display: flex; align-items: flex-end; gap: 2px;
+    height: 78px;
+    background-image: repeating-linear-gradient(
+      180deg,
+      rgba(28, 25, 23, 0.05) 0px,
+      rgba(28, 25, 23, 0.05) 1px,
+      transparent 1px,
+      transparent 19px
+    );
+  }
+  .pace-bar {
+    flex-basis: 0;
+    min-width: 3px;
+    border-radius: 3px 3px 1.5px 1.5px;
+  }
+
+  .pace-axis {
+    display: flex; justify-content: space-between;
+    border-top: 1px solid #e7e5e4;
+    padding: 4px 0 6px;
+    font-size: 7px; font-weight: 500; color: #a8a29e;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Timeline des étapes */
+  .steps { padding-top: 2px; }
+  .step-row { display: flex; gap: 6px; }
+  .step-rail { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 3px; }
+  .step-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .step-line { width: 1px; flex: 1; background: #e7e5e4; margin: 2px 0; }
+  .step-content { flex: 1; min-width: 0; padding-bottom: 9px; }
+  .step-row:last-child .step-content { padding-bottom: 0; }
+  .step-head { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+  .step-title { font-size: 9px; font-weight: 700; color: #292524; line-height: 1.2; }
+  .step-meta { font-size: 7.5px; font-weight: 500; color: #a8a29e; font-variant-numeric: tabular-nums; margin-top: 1px; }
+  .pace-chip {
+    font-size: 7px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    border: 1px solid;
+    border-radius: 99px;
+    padding: 1.5px 6px;
+    white-space: nowrap;
+  }
 
   .validate-btn {
+    margin-top: auto;
     background: #10b981;
     color: #fff;
-    font-size: 8.5px; font-weight: 700;
+    font-size: 9px; font-weight: 700;
     text-align: center;
     padding: 8px;
     border-radius: 9px;
