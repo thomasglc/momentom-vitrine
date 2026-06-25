@@ -12,7 +12,23 @@ const DIRECTUS = SITE.directusUrl
     </div>
 
     <div class="cards-row">
-      <div class="card card-monthly reveal">
+      <div class="card card-free reveal">
+        <p class="plan-name">Gratuit</p>
+        <div class="price-row">
+          <span class="price">0€</span>
+          <span class="period">/ toujours</span>
+        </div>
+        <p class="plan-desc">Entraîne-toi dès maintenant, sans carte bancaire.</p>
+        <ul class="features-list">
+          <li>Accès à la semaine d'entraînement en cours</li>
+          <li>Single, Duo &amp; Mixte Open</li>
+          <li>Calibrage d'allures personnalisé</li>
+          <li class="feature-locked">Historique &amp; progression complète</li>
+        </ul>
+        <a href={SITE.cta.href} class="btn-secondary">{SITE.cta.shortLabel} →</a>
+      </div>
+
+      <div class="card card-monthly reveal" style="--delay: 60ms">
         <p class="plan-name">Mensuel</p>
         <div class="price-row">
           <span class="price">15€</span>
@@ -24,6 +40,7 @@ const DIRECTUS = SITE.directusUrl
           <li>Calibrage d'allures personnalisé</li>
           <li>Single, Duo &amp; Mixte Open</li>
           <li>Suivi séance par séance</li>
+          <li>Entraînement de fond, même hors compétition</li>
         </ul>
         <a href={SITE.cta.href} class="btn-secondary">{SITE.cta.shortLabel} →</a>
       </div>
@@ -42,6 +59,7 @@ const DIRECTUS = SITE.directusUrl
           <li>Calibrage d'allures personnalisé</li>
           <li>Single, Duo &amp; Mixte Open</li>
           <li>Suivi séance par séance</li>
+          <li>Entraînement de fond, même hors compétition</li>
           <li><strong>2 mois offerts vs mensuel</strong></li>
         </ul>
         <a href={SITE.cta.href} class="btn-primary">{SITE.cta.shortLabel} →</a>
@@ -212,6 +230,21 @@ const DIRECTUS = SITE.directusUrl
     transition: border-color 150ms, color 150ms;
   }
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-ghost {
+    display: block; text-align: center;
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    color: var(--text-muted); border: 1.5px dashed var(--border);
+    padding: 14px 24px; border-radius: 8px; text-decoration: none;
+    transition: border-color 150ms, color 150ms;
+  }
+  .btn-ghost:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+  .feature-locked {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+  .feature-locked::before { content: '✗' !important; color: var(--text-muted) !important; }
 
   /* Waitlist */
   .waitlist {
