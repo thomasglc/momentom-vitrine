@@ -15,5 +15,5 @@ export const SITE = {
     appStore: '',
     playStore: '',
   },
-  directusUrl: 'https://back.galocha.fr',
+  directusUrl: 'https://back.momentom.training',
 }

@@ -4,6 +4,6 @@ import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
-  site: 'https://momentum-hyrox.fr',
+  site: 'https://momentom.training',
   integrations: [tailwind(), sitemap()],
 })
